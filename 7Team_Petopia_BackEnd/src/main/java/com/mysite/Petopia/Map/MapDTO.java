@@ -19,7 +19,7 @@ public class MapDTO {
     private Long id;
 
     @Column(name = "facility_name")
-    private String facilityName;
+    private String facility_name;
 
     @Column(name = "category1")
     private String category1;
@@ -31,43 +31,43 @@ public class MapDTO {
     private String category3;
 
     @Column(name = "city_name")
-    private String cityName;
+    private String city_name;
 
     @Column(name = "county_name")
-    private String countyName;
+    private String county_name;
 
     @Column(name = "town_name")
-    private String townName;
+    private String town_name;
 
     @Column(name = "village_name")
-    private String villageName;
+    private String village_name;
 
     @Column(name = "address_number")
-    private String addressNumber;
+    private String address_number;
 
     @Column(name = "road_name")
-    private String roadName;
+    private String road_name;
 
     @Column(name = "building_number")
-    private String buildingNumber;
+    private String building_number;
 
     @Column(name = "lat")
-    private Double latitude;
+    private Double lat;
 
     @Column(name = "lng")
-    private Double longitude;
+    private Double lng;
 
     @Column(name = "postal_code")
-    private Integer postalCode;
+    private Integer postal_code;
 
     @Column(name = "road_address")
-    private String roadAddress;
+    private String road_address;
 
     @Column(name = "lot_address")
-    private String lotAddress;
+    private String lot_address;
 
     @Column(name = "phone_number")
-    private String phoneNumber;
+    private String phone_number;
 
     @Column(name = "homepage")
     private String homepage;
@@ -76,38 +76,38 @@ public class MapDTO {
     private String holiday;
 
     @Column(name = "operation_time")
-    private String operationTime;
+    private String operation_time;
 
     @Column(name = "parking_info")
-    private String parkingInfo;
+    private String parking_info;
 
     @Column(name = "admission_price_info")
-    private String admissionPriceInfo;
+    private String admission_price_info;
 
     @Column(name = "pet_companion_info")
-    private String petCompanionInfo;
+    private String pet_companion_info;
 
     @Column(name = "pet_only_info")
-    private String petOnlyInfo;
+    private String pet_only_info;
 
     @Column(name = "animal_size_info")
-    private String animalSizeInfo;
+    private String animal_size_info;
 
     @Column(name = "pet_restriction_info")
-    private String petRestrictionInfo;
+    private String pet_restriction_info;
 
     @Column(name = "indoor_facility_info")
-    private String indoorFacilityInfo;
+    private String indoor_facility_info;
 
     @Column(name = "outdoor_facility_info")
-    private String outdoorFacilityInfo;
+    private String outdoor_facility_info;
 
     @Column(name = "place_description")
-    private String placeDescription;
+    private String place_description;
 
     @Column(name = "pet_companion_additional_fee")
-    private String petCompanionAdditionalFee;
+    private String pet_companion_additional_fee;
 
     @Column(name = "last_updated_date")
-    private String lastUpdatedDate;
+    private String last_updated_date;
 }
