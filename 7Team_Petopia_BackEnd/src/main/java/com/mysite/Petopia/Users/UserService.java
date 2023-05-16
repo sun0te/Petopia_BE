@@ -22,7 +22,10 @@ public class UserService {
 
 	}
 
-	
+	public void insertUserNaver(String email, String provider, String password, String name, String nickname, String profileImage) {
+		repository.insertUserNaver(email, provider, password, name, nickname, profileImage);
+
+	}
 
 	public UsersDTO getUser(String email) {
 		return repository.findById(email).orElse(null);

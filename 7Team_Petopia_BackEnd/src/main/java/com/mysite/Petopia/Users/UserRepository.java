@@ -16,6 +16,10 @@ public interface UserRepository extends JpaRepository<UsersDTO, String> {
 	@Query(value="insert into users(email, provider, password, nickname, profileImage) values(:email, :provider, :password, :nickname, :profileImage)", nativeQuery=true)
 	void insertUserKakao(String email, String provider, String password, String nickname, String profileImage);
 	
-
+	@Modifying
+	@Transactional
+	@Query(value="insert into users(email, provider, password, name, nickname, profileImage) values(:email, :provider, :password, :name, :nickname, :profileImage)", nativeQuery=true)
+	void insertUserNaver(String email, String provider, String password, String name, String nickname, String profileImage);
+	
 	
 }

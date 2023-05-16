@@ -21,13 +21,19 @@ public class UserController {
 
 	@RequestMapping("/signupkakao")
 	public void insertUserKakao(@RequestBody UsersDTO users) {
+		userService.insertUserKakao(users.getEmail(), users.getProvider(), users.getPassword(), users.getNickname(), users.getProfileImage());
+		//userService.insertUser2(email, provider, password, name, nickname, birthday, profile, memo);
+	}
+	
+	@RequestMapping("/signupnaver")
+	public void insertUserNaver(@RequestBody UsersDTO users) {
 		System.out.println("email : " + users.getEmail());
 		System.out.println("provider : " + users.getProvider());
 		System.out.println("password : " + users.getPassword());
+		System.out.println("name : " + users.getName());
 		System.out.println("nickname : " + users.getNickname());
 		System.out.println("profileImage : " + users.getProfileImage());
-		userService.insertUserKakao(users.getEmail(), users.getProvider(), users.getPassword(), users.getNickname(), users.getProfileImage());
-		//userService.insertUser2(email, provider, password, name, nickname, birthday, profile, memo);
+		userService.insertUserNaver(users.getEmail(), users.getProvider(), users.getPassword(), users.getName(), users.getNickname(), users.getProfileImage());
 	}
 	
 	@RequestMapping("/getUser")
