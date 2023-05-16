@@ -16,7 +16,7 @@ public class MapController {
 		this.mapServiceImpl = mapServiceImpl;
 	}
 
-	@RequestMapping("/list")
+	@RequestMapping("/maplist")
 	public List<MapDTO> mapServiceList() {
 		return mapServiceImpl.getmaplist();
 	}

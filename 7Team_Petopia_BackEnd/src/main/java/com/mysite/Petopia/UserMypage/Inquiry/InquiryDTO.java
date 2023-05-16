@@ -1,4 +1,4 @@
-package com.mysite.Petopia.UserMypage;
+package com.mysite.Petopia.UserMypage.Inquiry;
 
 import java.time.LocalDateTime;
 

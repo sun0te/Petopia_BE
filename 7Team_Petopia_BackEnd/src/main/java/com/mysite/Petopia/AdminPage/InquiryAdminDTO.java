@@ -1,6 +1,6 @@
 package com.mysite.Petopia.AdminPage;
 
-import com.mysite.Petopia.UserMypage.InquiryDTO;
+import com.mysite.Petopia.UserMypage.Inquiry.InquiryDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
