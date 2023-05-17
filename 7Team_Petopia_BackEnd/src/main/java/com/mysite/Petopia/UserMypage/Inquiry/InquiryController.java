@@ -18,8 +18,7 @@ public class InquiryController {
 
 	@RequestMapping("/inquirywrite")
 	public void insertinquiry(@RequestBody InquiryDTO inquiryDTO) {
-		inquiryServiceImpl.insertinquiry(inquiryDTO.getTitle(), inquiryDTO.getContent(), 
-				inquiryDTO.getAnswer_status(),inquiryDTO.getUsername());
+		inquiryServiceImpl.insertinquiry(inquiryDTO);
 	}
 	
 	@RequestMapping("/inquirylist")

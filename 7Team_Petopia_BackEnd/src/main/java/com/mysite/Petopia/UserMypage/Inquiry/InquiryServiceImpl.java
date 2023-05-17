@@ -23,24 +23,19 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 
 	@Override
-	public void insertinquiry(String title, String content, InquiryAnswerStatus answer_status, String username) {
+	public void insertinquiry(InquiryDTO inquiryDTO) {
 //		UsersDTO user = new UsersDTO();
 //		user.setEmail(username);
 
 		UsersDTO user=new UsersDTO();
-		Optional<UsersDTO> userdto=userRepository.findById(username);
+		Optional<UsersDTO> userdto=userRepository.findById(inquiryDTO.getUsername());
 		if(userdto.isPresent()) {
 			user=userdto.get();
 		}
 		
-		InquiryDTO dto = new InquiryDTO();
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setUploadDate(LocalDateTime.now());
-		dto.setAnswer_status(answer_status);
-		dto.setUsername(username);
-		dto.setUser(user);
-		inquiryRepository.save(dto);
+		inquiryDTO.setUploadDate(LocalDateTime.now());
+		inquiryDTO.setUser(user);
+		inquiryRepository.save(inquiryDTO);
 	}
 
 	@Override
@@ -55,11 +50,7 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public InquiryDTO inquirymodify(InquiryDTO inquiryDTO) {
-		inquiryDTO.setId(inquiryDTO.getId());
-		inquiryDTO.setTitle(inquiryDTO.getTitle());
-		inquiryDTO.setContent(inquiryDTO.getContent());
 		inquiryDTO.setUploadDate(LocalDateTime.now());
-		inquiryDTO.setAnswer_status(inquiryDTO.getAnswer_status());
 		return inquiryRepository.save(inquiryDTO);
 	}
 
