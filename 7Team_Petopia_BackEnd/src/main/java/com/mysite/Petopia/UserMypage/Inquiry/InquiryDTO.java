@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,31 +23,40 @@ import lombok.Setter;
 @Entity
 @Table(name = "inquiries")
 public class InquiryDTO {
-    @Id
-    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "email", foreignKey = @ForeignKey(name = "FK_inquiries_user_email"))
-    private UsersDTO user;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+	@ManyToOne
+	@JoinColumn(name = "user_email", referencedColumnName = "email", foreignKey = @ForeignKey(name = "FK_inquiries_user_email"))
+	private UsersDTO user;
 
-    @Column(name = "content", nullable = false)
-    private String content;
+	@Column(name = "title", nullable = false)
+	private String title;
 
-    @Column(name = "upload_date", nullable = false)
-    private LocalDateTime uploadDate;
+	@Column(name = "content", nullable = false)
+	private String content;
+	
+	@Column(name = "answer_content")
+	private String answerContent;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "answer_status", nullable = false)
-    private InquiryAnswerStatus answerStatus;
+	@Column(name = "upload_date", nullable = false)
+	private LocalDateTime uploadDate;
 
-    @Column(name = "report_date")
-    private LocalDateTime reportDate;
-    
-    public enum InquiryAnswerStatus {
-        PENDING,
-        ANSWERED
-    }
+	@Enumerated(EnumType.STRING)
+	@Column(name = "answer_status", nullable = false)
+	private InquiryAnswerStatus answer_status;
+
+	@Column(name = "report_date")
+	private LocalDateTime reportDate;
+
+	@Column(name = "username")
+	private String username;
+
+	public enum InquiryAnswerStatus {
+		PENDING, ANSWERED
+	}
+
 }

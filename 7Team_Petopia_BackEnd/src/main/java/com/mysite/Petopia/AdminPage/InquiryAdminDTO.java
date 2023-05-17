@@ -5,6 +5,8 @@ import com.mysite.Petopia.UserMypage.Inquiry.InquiryDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -18,6 +20,8 @@ import lombok.Setter;
 @Table(name = "inquiry_management")
 public class InquiryAdminDTO {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
     private Long id;
 
     @OneToOne
