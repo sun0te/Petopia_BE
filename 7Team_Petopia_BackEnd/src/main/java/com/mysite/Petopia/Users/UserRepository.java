@@ -33,4 +33,11 @@ public interface UserRepository extends JpaRepository<UsersDTO, String> {
 	
 	List<UsersDTO> findByNameAndPasswordAndBirthday(String name, String password, LocalDate birthday);
 	
+	UsersDTO findByEmailAndNameAndBirthday(String email, String name, LocalDate birthday);
+	
+	@Modifying
+	@Transactional
+	@Query(value="update users set name = :name, nickname = :nickname, password = :password where email = :email", nativeQuery=true)
+	void updateUserInfo (String email, String name, String nickname, String password);
+	
 }

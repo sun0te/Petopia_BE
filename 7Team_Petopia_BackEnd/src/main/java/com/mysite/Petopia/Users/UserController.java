@@ -57,4 +57,16 @@ public class UserController {
 	public List<UsersDTO> findUserEmail(@RequestBody UsersDTO users) {
 		return userService.findUserEmail(users.getName(), users.getPassword(), users.getBirthday());
 	}
+	
+	@RequestMapping("/findpassword")
+	public UsersDTO findUserPassword(@RequestBody UsersDTO users) {
+		return userService.findUserPassword(users.getEmail(), users.getName(), users.getBirthday());
+	}
+	
+	@RequestMapping("/updateuserinfo")
+	public void updateUserInfo(@RequestBody UsersDTO users) {
+		userService.updateUserInfo(users.getEmail(), users.getName(), users.getNickname(), users.getPassword());
+	}
+	
+	
 }

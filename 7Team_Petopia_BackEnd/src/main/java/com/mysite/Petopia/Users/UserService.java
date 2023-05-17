@@ -42,4 +42,11 @@ public class UserService {
 		return repository.findByNameAndPasswordAndBirthday(name, password, birthday);
 	}
 	
+	public UsersDTO findUserPassword(String email, String name, LocalDate birthday) {
+		return repository.findByEmailAndNameAndBirthday(email, name, birthday);
+	}
+	
+	public void updateUserInfo(String email, String name, String nickname, String password) {
+		repository.updateUserInfo(email, name, nickname, password);
+	}
 }
