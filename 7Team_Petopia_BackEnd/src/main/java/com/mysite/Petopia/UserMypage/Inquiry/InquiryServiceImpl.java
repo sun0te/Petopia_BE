@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.mysite.Petopia.UserMypage.Inquiry.InquiryDTO.InquiryAnswerStatus;
 import com.mysite.Petopia.Users.UserRepository;
 import com.mysite.Petopia.Users.UsersDTO;
 
