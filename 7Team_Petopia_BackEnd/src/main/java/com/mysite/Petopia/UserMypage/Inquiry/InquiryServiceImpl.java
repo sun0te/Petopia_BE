@@ -26,31 +26,82 @@ public class InquiryServiceImpl implements InquiryService {
 //		UsersDTO user = new UsersDTO();
 //		user.setEmail(username);
 
-		UsersDTO user=new UsersDTO();
-		Optional<UsersDTO> userdto=userRepository.findById(inquiryDTO.getUsername());
-		if(userdto.isPresent()) {
-			user=userdto.get();
+		UsersDTO user = new UsersDTO();
+		Optional<UsersDTO> userdto = userRepository.findById(inquiryDTO.getUsername());
+		if (userdto.isPresent()) {
+			user = userdto.get();
 		}
-		
+
 		inquiryDTO.setUploadDate(LocalDateTime.now());
 		inquiryDTO.setUser(user);
 		inquiryRepository.save(inquiryDTO);
 	}
 
 	@Override
-	public List<InquiryDTO> inquirylist(String username) {
+	public List<InquiryDTO> inquiryList(String username) {
 		return inquiryRepository.findByUsername(username);
 	}
 
 	@Override
-	public void inquirydelete(InquiryDTO inquiryDTO) {
+	public void inquiryDelete(InquiryDTO inquiryDTO) {
 		inquiryRepository.delete(inquiryDTO);
 	}
 
 	@Override
-	public InquiryDTO inquirymodify(InquiryDTO inquiryDTO) {
+	public InquiryDTO inquiryModify(InquiryDTO inquiryDTO) {
 		inquiryDTO.setUploadDate(LocalDateTime.now());
 		return inquiryRepository.save(inquiryDTO);
+	}
+
+	@Override
+	public List<InquiryDTO> inquiryListAll() {
+		return inquiryRepository.findAll();
+	}
+
+	@Override
+	public InquiryDTO insertAnswer(InquiryDTO inquiryDTO) {
+		InquiryDTO dto = new InquiryDTO();
+		Optional<InquiryDTO> Optionaldto = inquiryRepository.findById(inquiryDTO.getId());
+		if (Optionaldto.isPresent()) {
+			dto = Optionaldto.get();
+			dto.setAnswer_status(inquiryDTO.getAnswer_status());
+			dto.setAnswerContent(inquiryDTO.getAnswerContent());
+			dto.setReportDate(LocalDateTime.now());
+		} else {
+			System.out.println("에러발생");
+		}
+
+		return inquiryRepository.save(dto);
+	}
+
+	@Override
+	public InquiryDTO updateAnswer(InquiryDTO inquiryDTO) {
+		InquiryDTO dto = new InquiryDTO();
+		Optional<InquiryDTO> Optionaldto = inquiryRepository.findById(inquiryDTO.getId());
+		if (Optionaldto.isPresent()) {
+			dto = Optionaldto.get();
+			dto.setAnswerContent(inquiryDTO.getAnswerContent());
+			dto.setReportDate(LocalDateTime.now());
+		} else {
+			System.out.println("에러발생");
+		}
+
+		return inquiryRepository.save(dto);
+	}
+
+	@Override
+	public InquiryDTO inquiryAnswerDelete(InquiryDTO inquiryDTO) {
+		InquiryDTO dto = new InquiryDTO();
+		Optional<InquiryDTO> Optionaldto = inquiryRepository.findById(inquiryDTO.getId());
+		if (Optionaldto.isPresent()) {
+			dto = Optionaldto.get();
+			dto.setAnswerContent(null);
+			dto.setAnswer_status(inquiryDTO.getAnswer_status());
+			dto.setReportDate(null);
+		} else {
+			System.out.println("에러발생");
+		}
+		return inquiryRepository.save(dto);
 	}
 
 }

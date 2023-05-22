@@ -4,7 +4,18 @@ import java.util.List;
 
 public interface InquiryService {
 	void insertinquiry(InquiryDTO inquiryDTO);
-	List<InquiryDTO> inquirylist(String username);
-	public void inquirydelete(InquiryDTO inquiryDTO);
-	public InquiryDTO inquirymodify(InquiryDTO inquiryDTO);
+
+	List<InquiryDTO> inquiryList(String username);
+
+	public void inquiryDelete(InquiryDTO inquiryDTO);
+
+	public InquiryDTO inquiryModify(InquiryDTO inquiryDTO);
+
+	List<InquiryDTO> inquiryListAll();
+
+	public InquiryDTO insertAnswer(InquiryDTO inquiryDTO);
+	
+	public InquiryDTO updateAnswer(InquiryDTO inquiryDTO);
+	
+	public InquiryDTO inquiryAnswerDelete(InquiryDTO inquiryDTO);
 }
