@@ -23,8 +23,6 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public void insertinquiry(InquiryDTO inquiryDTO) {
-//		UsersDTO user = new UsersDTO();
-//		user.setEmail(username);
 
 		UsersDTO user = new UsersDTO();
 		Optional<UsersDTO> userdto = userRepository.findById(inquiryDTO.getUsername());
