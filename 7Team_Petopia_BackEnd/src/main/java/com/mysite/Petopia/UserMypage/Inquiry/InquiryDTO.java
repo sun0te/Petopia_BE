@@ -36,10 +36,10 @@ public class InquiryDTO {
 	@Column(name = "title", nullable = false)
 	private String title;
 
-	@Column(name = "content", nullable = false,length = 500)
+	@Column(name = "content", nullable = false)
 	private String content;
 	
-	@Column(name = "answer_content",length = 1000)
+	@Column(name = "answer_content")
 	private String answerContent;
 
 	@Column(name = "upload_date", nullable = false)
