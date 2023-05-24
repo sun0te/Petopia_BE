@@ -64,7 +64,6 @@ public class BoardDTO {
     private LocalDateTime updatedAt;
     
     public enum BoardCategory {
-    	NOTICE,
     	FREE,
     	LOCAL,
     	TRAVEL
