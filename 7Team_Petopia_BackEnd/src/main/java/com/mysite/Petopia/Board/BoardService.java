@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mysite.Petopia.Board.BoardDTO.BoardCategory;
 import com.mysite.Petopia.Board.Travel.TravelRepository;
+import com.mysite.Petopia.UserMypage.UserInterestRepository;
 import com.mysite.Petopia.UserMypage.UserRecommendRepository;
 import com.mysite.Petopia.Users.UsersDTO;
 
@@ -18,13 +19,15 @@ public class BoardService {
 	private BoardRepository repository;
 	private BoardImgRepository imgRepository;
 	private TravelRepository travelRepository;
-	private UserRecommendRepository userRecommendRepositoryl;
+	private UserRecommendRepository userRecommendRepository;
+	private UserInterestRepository userInterestRepository;
 
-	public BoardService(BoardRepository repository, BoardImgRepository imgRepository, TravelRepository travelRepository, UserRecommendRepository userRecommendRepository, UserRecommendRepository userRecommendRepositoryl) {
+	public BoardService(BoardRepository repository, BoardImgRepository imgRepository, TravelRepository travelRepository, UserRecommendRepository userRecommendRepository, UserInterestRepository userInterestRepository) {
 		this.repository = repository;
 		this.imgRepository = imgRepository;
 		this.travelRepository = travelRepository;
-		this.userRecommendRepositoryl = userRecommendRepositoryl;
+		this.userRecommendRepository = userRecommendRepository;
+		this.userInterestRepository = userInterestRepository;
 	}
 	
 	// 게시글 작성
@@ -61,7 +64,8 @@ public class BoardService {
 	@Transactional
 	// 게시글 삭제
 	public void deleteBoard(Long id) {
-		userRecommendRepositoryl.deleteByPost_id(id);
+		userRecommendRepository.deleteByPost_id(id);
+		userInterestRepository.deleteByPost_id(id);
 		travelRepository.deleteByPost_id(id);
 		imgRepository.deleteByPost_id(id);
 		repository.deleteById(id);
