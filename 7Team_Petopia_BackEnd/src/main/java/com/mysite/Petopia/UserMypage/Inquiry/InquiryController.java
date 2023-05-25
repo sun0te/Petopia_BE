@@ -12,7 +12,7 @@ public class InquiryController {
 
 	private InquiryServiceImpl inquiryServiceImpl;
 
-//
+
 	public InquiryController(InquiryServiceImpl inquiryServiceImpl) {
 		this.inquiryServiceImpl = inquiryServiceImpl;
 	}
