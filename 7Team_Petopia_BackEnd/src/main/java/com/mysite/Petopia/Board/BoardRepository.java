@@ -36,4 +36,14 @@ public interface BoardRepository extends JpaRepository<BoardDTO, Long>{
 	@Query(value="update posts set recommends = recommends - 1 where id = :id", nativeQuery=true)
 	public void deleteRecommend(Long id);
 
+	@Modifying
+	@Transactional
+	@Query(value="update posts set likes = likes + 1 where id = :id", nativeQuery=true)
+	public void updateInterest(Long id);
+
+	@Modifying
+	@Transactional
+	@Query(value="update posts set likes = likes - 1 where id = :id", nativeQuery=true)
+	public void deleteInterest(Long id);
+
 }

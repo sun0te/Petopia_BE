@@ -39,7 +39,7 @@ public class InquiryDTO {
 
 	@Column(name = "content", nullable = false,length = 500)
 	private String content;
-	
+
 	@Column(name = "answer_content",length = 1000)
 	private String answerContent;
 

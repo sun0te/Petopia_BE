@@ -1,8 +1,7 @@
-package com.mysite.Petopia.UserMypage;
+package com.mysite.Petopia.Board.Notice;
 
 import java.time.LocalDateTime;
 
-import com.mysite.Petopia.Board.BoardDTO;
 import com.mysite.Petopia.Users.UsersDTO;
 
 import jakarta.persistence.Column;
@@ -20,25 +19,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "interests")
-public class UserInterestDTO {
+@Table(name = "notice_interests")
+public class NoticeInterestDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "email", foreignKey = @ForeignKey(name = "FK_interests_user_email"))
-    private UsersDTO user;
+	@JoinColumn(name = "user_email", referencedColumnName = "email", foreignKey = @ForeignKey(name = "FK_notice_interests_user_email"))
+    private UsersDTO admin;
 
     @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_interests_post_id"))
-    private BoardDTO post;
+    @JoinColumn(name = "notice_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_notice_image_id"))
+    private NoticeDTO noticeId;
 
-    @Column(name = "clicked_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "clicked_at", nullable = false)
     private LocalDateTime clickedAt;
-    
 }
-
-
-
-

@@ -73,7 +73,6 @@ public class BoardDTO implements Serializable{
     private LocalDateTime updatedAt;
     
     public enum BoardCategory {
-    	NOTICE,
     	FREE,
     	LOCAL,
     	TRAVEL
