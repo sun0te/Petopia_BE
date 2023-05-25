@@ -21,10 +21,10 @@ public class InquiryController {
 	public void insertinquiry(@RequestBody InquiryDTO inquiryDTO) {
 		inquiryServiceImpl.insertinquiry(inquiryDTO);
 	}
-
+	
 	@RequestMapping("/inquirylist")
-	public List<InquiryDTO> getinquirylist(@RequestParam String username) {
-		return inquiryServiceImpl.inquiryList(username);
+	public List<InquiryDTO> getinquirylist(@RequestParam String user) {
+		return inquiryServiceImpl.inquiryList(user);
 	}
 
 	@RequestMapping("/inquirydelete")

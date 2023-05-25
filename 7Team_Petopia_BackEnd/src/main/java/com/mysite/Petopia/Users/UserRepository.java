@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+
 import jakarta.transaction.Transactional;
 
 public interface UserRepository extends JpaRepository<UsersDTO, String> {
@@ -39,5 +40,6 @@ public interface UserRepository extends JpaRepository<UsersDTO, String> {
 	@Transactional
 	@Query(value="update users set name = :name, nickname = :nickname, password = :password where email = :email", nativeQuery=true)
 	void updateUserInfo (String email, String name, String nickname, String password);
+
 	
 }

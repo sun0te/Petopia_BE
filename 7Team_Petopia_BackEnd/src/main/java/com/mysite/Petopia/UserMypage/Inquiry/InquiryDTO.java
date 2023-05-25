@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,7 +53,7 @@ public class InquiryDTO {
 	@Column(name = "report_date")
 	private LocalDateTime reportDate;
 
-	@Column(name = "username")
+	@Transient
 	private String username;
 
 	public enum InquiryAnswerStatus {

@@ -24,20 +24,27 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public void insertinquiry(InquiryDTO inquiryDTO) {
 
-		UsersDTO user = new UsersDTO();
+		UsersDTO dto = new UsersDTO();
 		Optional<UsersDTO> userdto = userRepository.findById(inquiryDTO.getUsername());
 		if (userdto.isPresent()) {
-			user = userdto.get();
+			dto = userdto.get();
 		}
 
 		inquiryDTO.setUploadDate(LocalDateTime.now());
-		inquiryDTO.setUser(user);
+		inquiryDTO.setUser(dto);
 		inquiryRepository.save(inquiryDTO);
 	}
 
 	@Override
-	public List<InquiryDTO> inquiryList(String username) {
-		return inquiryRepository.findByUsername(username);
+	public List<InquiryDTO> inquiryList(String user) {
+		Optional<UsersDTO> optionaldto = userRepository.findById(user);
+		UsersDTO dto = new UsersDTO();
+		if (optionaldto.isPresent()) {
+			dto = optionaldto.get();
+		} else {
+			System.out.println("이메일이 존재하지 않음");
+		}
+		return inquiryRepository.findByUser(dto);
 	}
 
 	@Override
@@ -47,7 +54,13 @@ public class InquiryServiceImpl implements InquiryService {
 
 	@Override
 	public InquiryDTO inquiryModify(InquiryDTO inquiryDTO) {
+		UsersDTO dto = new UsersDTO();
+		Optional<UsersDTO> userdto = userRepository.findById(inquiryDTO.getUsername());
+		if (userdto.isPresent()) {
+			dto = userdto.get();
+		}
 		inquiryDTO.setUploadDate(LocalDateTime.now());
+		inquiryDTO.setUser(dto);
 		return inquiryRepository.save(inquiryDTO);
 	}
 

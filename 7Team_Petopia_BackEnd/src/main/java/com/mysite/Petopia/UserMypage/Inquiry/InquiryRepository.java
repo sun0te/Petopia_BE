@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.mysite.Petopia.Users.UsersDTO;
+
 public interface InquiryRepository extends JpaRepository<InquiryDTO, Long> {
 
-	List<InquiryDTO> findByUsername(String username);
+	List<InquiryDTO> findByUser(UsersDTO user);
 
 }
