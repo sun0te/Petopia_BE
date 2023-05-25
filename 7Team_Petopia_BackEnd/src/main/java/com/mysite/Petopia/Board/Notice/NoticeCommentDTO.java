@@ -27,7 +27,7 @@ public class NoticeCommentDTO {
 
     @ManyToOne
     @JoinColumn(name = "notice_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_comments_notice_id"))
-    private Long noticeId;
+    private NoticeDTO notice;
 
     @ManyToOne
     @JoinColumn(name = "author_email", referencedColumnName = "email", foreignKey = @ForeignKey(name = "FK_comments_notice_author_email"))
@@ -42,8 +42,3 @@ public class NoticeCommentDTO {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 }
-
-
-
-
-

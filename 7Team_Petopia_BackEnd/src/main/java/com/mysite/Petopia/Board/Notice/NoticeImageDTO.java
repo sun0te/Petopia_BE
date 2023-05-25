@@ -23,7 +23,7 @@ public class NoticeImageDTO {
 
     @ManyToOne
     @JoinColumn(name = "notice_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_notice_image_id"))
-    private NoticeDTO noticeId;
+    private NoticeDTO notice;
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
