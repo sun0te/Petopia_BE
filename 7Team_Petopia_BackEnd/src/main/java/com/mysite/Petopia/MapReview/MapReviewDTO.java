@@ -1,6 +1,6 @@
 package com.mysite.Petopia.MapReview;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import com.mysite.Petopia.Map.MapDTO;
 import com.mysite.Petopia.Users.UsersDTO;
@@ -10,10 +10,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +26,7 @@ import lombok.Setter;
 @Table(name = "reviews")
 public class MapReviewDTO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -34,32 +38,37 @@ public class MapReviewDTO {
 
     @Column(name = "content")
     private String content;
+    
+    @Column(name = "medical_cost")
+    private Integer medicalCost;
+    
+    @Column(name = "surgery_cost")
+    private Integer surgeryCost;
 
     @Column(name = "cost", nullable = false)
     private Integer cost;
 
+    
     @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_reviews_location_id"))
     private MapDTO location;
 
     @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "price_type", nullable = false)
-    private PriceType priceType;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "price_level", nullable = false)
     private PriceLevel priceLevel;
-
-    public enum PriceType {
-        HOSPITAL,
-        FOOD_CAFE,
-        ACCOMMODATION,
-        ETC
-    }
-
+    
+	@Transient
+	private String username;
+	
+	@Transient
+	private Double lat;
+	
+	@Transient
+	private Double lng;
+    
     public enum PriceLevel {
         CHEAP,
         MODERATE,

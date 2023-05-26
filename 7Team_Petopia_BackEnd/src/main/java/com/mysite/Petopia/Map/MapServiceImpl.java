@@ -1,6 +1,7 @@
 package com.mysite.Petopia.Map;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,12 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public MapDTO findByLatAndLng(Double lat, Double lng) {
-		return mapRepository.findByLatAndLng(lat, lng);
+		MapDTO mapDTO=new MapDTO();
+		Optional<MapDTO> dto = mapRepository.findByLatAndLng(lat, lng);
+		if (dto.isPresent()) {
+			mapDTO=dto.get();
+		}
+		return mapDTO;
 	}
 
 }
