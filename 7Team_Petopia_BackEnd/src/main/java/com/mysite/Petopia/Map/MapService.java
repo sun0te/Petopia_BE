@@ -7,4 +7,7 @@ public interface MapService {
 	public List<MapDTO> getmaplist();
 
 	public MapDTO findByLatAndLng(Double lat, Double lng);
+	
+	public MapDTO findplace(Long id);
+	
 }

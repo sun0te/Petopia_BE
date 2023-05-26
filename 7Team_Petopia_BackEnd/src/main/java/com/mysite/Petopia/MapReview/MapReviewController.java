@@ -46,8 +46,8 @@ public class MapReviewController {
 	}
 
 	@RequestMapping("/mapReviewList")
-	public List<MapReviewDTO> mapPlace(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
-		return mapReviewServiceImpl.reviewList(lat, lng);
+	public List<MapReviewDTO> mapPlace(@RequestParam("id") Long id) {
+		return mapReviewServiceImpl.reviewList(id);
 	}
 
 }

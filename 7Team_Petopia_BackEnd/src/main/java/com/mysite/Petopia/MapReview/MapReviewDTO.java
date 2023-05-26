@@ -64,10 +64,8 @@ public class MapReviewDTO {
 	private String username;
 	
 	@Transient
-	private Double lat;
+	private Long mapid;
 	
-	@Transient
-	private Double lng;
     
     public enum PriceLevel {
         CHEAP,

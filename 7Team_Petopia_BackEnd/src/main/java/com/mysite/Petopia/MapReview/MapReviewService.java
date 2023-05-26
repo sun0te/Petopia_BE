@@ -8,6 +8,6 @@ public interface MapReviewService {
 	
 	public void reviewimgupload(String uploadfiles,Long num) ;
 	
-	public List<MapReviewDTO> reviewList(Double lat,Double lng);
+	public List<MapReviewDTO> reviewList(Long id);
 
 }

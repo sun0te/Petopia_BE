@@ -18,11 +18,22 @@ public class MapServiceImpl implements MapService {
 	public List<MapDTO> getmaplist() {
 		return mapRepository.findAll();
 	}
+	
 
 	@Override
 	public MapDTO findByLatAndLng(Double lat, Double lng) {
 		MapDTO mapDTO=new MapDTO();
 		Optional<MapDTO> dto = mapRepository.findByLatAndLng(lat, lng);
+		if (dto.isPresent()) {
+			mapDTO=dto.get();
+		}
+		return mapDTO;
+	}
+	
+	@Override
+	public MapDTO findplace(Long id) {
+		MapDTO mapDTO=new MapDTO();
+		Optional<MapDTO> dto = mapRepository.findById(id);
 		if (dto.isPresent()) {
 			mapDTO=dto.get();
 		}

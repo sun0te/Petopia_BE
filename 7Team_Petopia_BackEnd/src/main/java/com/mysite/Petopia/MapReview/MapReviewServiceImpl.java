@@ -39,7 +39,7 @@ public class MapReviewServiceImpl implements MapReviewService {
 			dto = userdto.get();
 		}
 
-		Optional<MapDTO> mapdto = mapRepository.findByLatAndLng(mapReviewDTO.getLat(), mapReviewDTO.getLng());
+		Optional<MapDTO> mapdto = mapRepository.findById(mapReviewDTO.getMapid());
 		if (mapdto.isPresent()) {
 			map = mapdto.get();
 		}
@@ -66,9 +66,9 @@ public class MapReviewServiceImpl implements MapReviewService {
 	}
 
 	@Override
-	public List<MapReviewDTO> reviewList(Double lat,Double lng) {
+	public List<MapReviewDTO> reviewList(Long id) {
 		MapDTO map = new MapDTO();
-		Optional<MapDTO> mapdto = mapRepository.findByLatAndLng(lat, lng);
+		Optional<MapDTO> mapdto = mapRepository.findById(id);
 		if (mapdto.isPresent()) {
 			map = mapdto.get();
 		}
