@@ -34,10 +34,10 @@ public class TravelBoardDTO {
     private String placeName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "catergory" ,nullable = false)
+    @Column(name = "category" ,nullable = false)
     private Category category;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
     //@Enumerated(EnumType.STRING)

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.mysite.Petopia.Board.BoardDTO;
 import com.mysite.Petopia.Board.Travel.TravelBoardDTO.Category;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class TravelService {
@@ -18,14 +20,6 @@ public class TravelService {
 	public TravelService(TravelRepository repository) {
 		this.repository = repository;
 	}
-
-//	public Integer insertTravelBoard(UsersDTO usersDTO, String title, String content, String thumbnailImage, BoardCategory boardCategory) {
-//		String boardcategory = boardCategory.toString();
-//		repository.insertTravelBoard(usersDTO.getEmail(), title, content, thumbnailImage, boardcategory);
-//		 TravelBoardDTO travelBoardDTO = new TravelBoardDTO();
-//	        TravelBoardDTO savedBoardDTO = repository.save(travelBoardDTO);
-//	        return savedBoardDTO.getId();
-//	}
 
 	public void insertTravelBoardInfo(BoardDTO boardDTO, String placename, Category category,
 			String petProvisions) {
@@ -40,4 +34,17 @@ public class TravelService {
 	public TravelBoardDTO selectTravelBoardInfo(Long post_id) {
 		return repository.findByPost_id(Long.valueOf(post_id));
 	}
+	
+	@Transactional
+	public void updateTravelBoardInfo (BoardDTO boardDTO, String placename, Category category,
+			String petProvisions) {
+		repository.deleteByPost_id(boardDTO.getId());
+		TravelBoardDTO travelboard = new TravelBoardDTO();
+		travelboard.setPost(boardDTO);
+		travelboard.setPlaceName(placename);
+		travelboard.setCategory(category);
+		travelboard.setPetProvisions(petProvisions);
+		repository.save(travelboard);
+	}
+	
 }

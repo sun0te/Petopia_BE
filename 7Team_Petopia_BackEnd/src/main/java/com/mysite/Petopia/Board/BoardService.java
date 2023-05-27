@@ -71,13 +71,18 @@ public class BoardService {
 		repository.deleteById(id);
 	}
 	
+	// 게시글 수정
+		public void updateBoard(Long id, String title, String content) {
+			repository.updateBoard(id, title, content);
+		}
+	
 	// 여행추천 Best
 	public List<BoardDTO> selectTravelBoardBest(BoardCategory category) {
 		return repository.findTop3ByCategoryOrderByRecommendsDesc(category);
 	}
 	
 	// 여행추천 All
-		public List<BoardDTO> selectTravelBoardAll(BoardCategory category) {
+		public List<BoardDTO> selectBoardAll(BoardCategory category) {
 			return repository.findByCategoryOrderByCreatedAtDesc(category);
 		}
 	
