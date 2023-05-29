@@ -19,12 +19,6 @@ public class TravelController {
 		this.travelService = travelService;
 	}
 
-	
-//	@RequestMapping("/write")
-//	public Integer insertTravelBoard(@RequestBody BoardDTO board) {
-//		return travelService.insertTravelBoard(board.getAuthor(), board.getTitle(), board.getContent(), board.getThumbnailImage(), board.getCategory());
-//	}
-
 	@PostMapping("/writeinfo")
     public void insertTravelBoardInfo(@RequestBody TravelBoardDTO travelDTO) {
         travelService.insertTravelBoardInfo(travelDTO.getPost(), travelDTO.getPlaceName(),
@@ -36,4 +30,9 @@ public class TravelController {
         return travelService.selectTravelBoardInfo(travelDTO.getPost().getId());
     }
 	
+	@PostMapping("/updateinfo")
+    public void updateTravelBoardInfo(@RequestBody TravelBoardDTO travelDTO) {
+        travelService.updateTravelBoardInfo(travelDTO.getPost(),
+                travelDTO.getPlaceName(),travelDTO.getCategory(), travelDTO.getPetProvisions());
+    }
 }

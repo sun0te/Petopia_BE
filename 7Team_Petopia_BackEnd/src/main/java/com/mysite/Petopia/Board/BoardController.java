@@ -27,10 +27,9 @@ public class BoardController {
 
 	Long boardid;
 	String thumbnail = "";
-	
 	// 게시글 작성
 	@RequestMapping("/board/write")
-	public Long insertTravelBoard(@RequestBody BoardDTO board) {
+	public Long insertBoard(@RequestBody BoardDTO board) {
 		thumbnail = UUID.randomUUID().toString().replaceAll("-", "")+".jpg";
 		boardid = boardService.insertBoard(board.getAuthor(), board.getTitle(), board.getContent(), thumbnail, board.getCategory());
 		return boardid;
@@ -76,6 +75,28 @@ public class BoardController {
 		boardService.deleteBoard(board.getId());
 	}
 	
+	Long updateboardid;
+	// 게시글 수정
+	@RequestMapping("/board/update")
+	public void updateBoard(@RequestBody BoardDTO board) {
+		updateboardid = board.getId();
+		boardService.updateBoard(board.getId(), board.getTitle(), board.getContent());
+	}
+	
+	// 게시글 수정 파일 업로드
+	@RequestMapping("/board/uploadfilesupdate")
+	public void updateuploadfiles(@RequestBody MultipartFile[] uploadfiles) throws IOException {
+		for (MultipartFile file : uploadfiles) {
+			if (!file.isEmpty()) {
+				File storedFilename = new File(UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+				file.transferTo(storedFilename);
+				BoardDTO boardDTO = new BoardDTO();
+				boardDTO.setId(updateboardid);
+				boardService.saveuploadfiles(storedFilename.toString(), boardDTO);
+			}
+		}
+	}
+	
 	// 여행추천 Best
 	@PostMapping("/travelboard/travelbest")
 	public List<BoardDTO> selectTravelBoardBest(@RequestBody BoardDTO board) {
@@ -84,7 +105,7 @@ public class BoardController {
 	
 	// 여행추천 All
 	@PostMapping("/travelboard/travelall")
-	public List<BoardDTO> selectTravelBoardAll(@RequestBody BoardDTO board) {
-		return (List<BoardDTO>)boardService.selectTravelBoardAll(board.getCategory());
+	public List<BoardDTO> selectBoardAll(@RequestBody BoardDTO board) {
+		return (List<BoardDTO>)boardService.selectBoardAll(board.getCategory());
 	}
 }

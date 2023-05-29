@@ -20,6 +20,12 @@ public interface BoardRepository extends JpaRepository<BoardDTO, Long>{
 	@Query(value="update posts set views = views + 1 where id = :id", nativeQuery=true)
 	public void updateBoardView(Long id);
 	
+	// 게시글 수정
+	@Modifying
+	@Transactional
+	@Query(value="update posts set title = :title, content = :content, updated_at = now() where id = :id", nativeQuery=true)
+	public void updateBoard(Long id, String title, String content);
+	
 	// 여행추천 Best
 	public List<BoardDTO> findTop3ByCategoryOrderByRecommendsDesc(BoardCategory category);
 	

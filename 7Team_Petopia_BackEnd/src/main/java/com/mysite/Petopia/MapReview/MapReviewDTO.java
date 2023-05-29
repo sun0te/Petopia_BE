@@ -1,6 +1,7 @@
 package com.mysite.Petopia.MapReview;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import com.mysite.Petopia.Map.MapDTO;
 import com.mysite.Petopia.Users.UsersDTO;
@@ -10,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,6 +26,7 @@ import lombok.Setter;
 @Table(name = "reviews")
 public class MapReviewDTO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -30,20 +34,20 @@ public class MapReviewDTO {
     private UsersDTO writer;
 
     @Column(name = "rating", nullable = false)
-    private Integer rating;
+    private int rating;
 
     @Column(name = "content")
     private String content;
 
     @Column(name = "cost", nullable = false)
-    private Integer cost;
+    private int cost;
 
     @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_reviews_location_id"))
     private MapDTO location;
 
     @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "price_type", nullable = false)
