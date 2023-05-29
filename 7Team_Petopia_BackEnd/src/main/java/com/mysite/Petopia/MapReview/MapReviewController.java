@@ -38,7 +38,7 @@ public class MapReviewController {
 	public void upload(@RequestParam MultipartFile[] uploadfiles) throws IOException {
 		for (MultipartFile file : uploadfiles) {
 			if (!file.isEmpty()) {
-				File storedFilename = new File(UUID.randomUUID().toString() + "_" + file.getOriginalFilename());
+				File storedFilename = new File(UUID.randomUUID().toString());
 				file.transferTo(storedFilename);
 				mapReviewServiceImpl.reviewimgupload(storedFilename.toString(), reviewid);
 			}
@@ -46,8 +46,13 @@ public class MapReviewController {
 	}
 
 	@RequestMapping("/mapReviewList")
-	public List<MapReviewDTO> mapPlace(@RequestParam("id") Long id) {
+	public List<MapReviewDTO> mapReviewList(@RequestParam("id") Long id) {
 		return mapReviewServiceImpl.reviewList(id);
+	}
+
+	@RequestMapping("/mapImgList")
+	public List<ReviewImgDTO> mapImgList(@RequestParam("id") Long id) {
+		return mapReviewServiceImpl.reviewImgList(id);
 	}
 
 }

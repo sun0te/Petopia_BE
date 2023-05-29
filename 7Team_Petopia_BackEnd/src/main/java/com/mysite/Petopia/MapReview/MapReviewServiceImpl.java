@@ -1,6 +1,7 @@
 package com.mysite.Petopia.MapReview;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +73,31 @@ public class MapReviewServiceImpl implements MapReviewService {
 		if (mapdto.isPresent()) {
 			map = mapdto.get();
 		}
+
 		return mapReviewRepository.findByLocation(map);
+	}
+
+	@Override
+	public List<ReviewImgDTO> reviewImgList(Long id) {
+
+		List<ReviewImgDTO> imgdto = new ArrayList<>();
+
+		MapDTO map = new MapDTO();
+		Optional<MapDTO> mapdto = mapRepository.findById(id);
+		if (mapdto.isPresent()) {
+			map = mapdto.get();
+		}
+
+		List<MapReviewDTO> dto = mapReviewRepository.findByLocation(map);
+		for (int i = 0; i < dto.size(); i++) {
+		    List<ReviewImgDTO> reviewdtos = reviewImgRepository.findByReview(dto.get(i));
+
+		    if (reviewdtos != null && !reviewdtos.isEmpty()) {
+		        imgdto.addAll(reviewdtos);
+		    }
+		}
+
+		return imgdto;
 	}
 
 }
