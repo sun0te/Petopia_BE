@@ -6,9 +6,9 @@ public interface MapReviewService {
 	
 	public Long insertReview(MapReviewDTO mapReviewDTO);
 	
-	public void reviewimgupload(String uploadfiles,Long num) ;
+	public void reviewimgupload(String uploadfiles,Long num);
 	
-	public List<MapReviewDTO> reviewList(Long id);
+	public List<MapReviewDTO> reviewList(Long id,int num);
 
 	public List<ReviewImgDTO> reviewImgList(Long id);
 }

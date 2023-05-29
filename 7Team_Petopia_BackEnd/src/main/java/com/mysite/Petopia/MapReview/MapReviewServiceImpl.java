@@ -13,6 +13,7 @@ import com.mysite.Petopia.Map.MapDTO;
 import com.mysite.Petopia.Map.MapRepository;
 import com.mysite.Petopia.Users.UserRepository;
 import com.mysite.Petopia.Users.UsersDTO;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class MapReviewServiceImpl implements MapReviewService {
@@ -67,14 +68,26 @@ public class MapReviewServiceImpl implements MapReviewService {
 	}
 
 	@Override
-	public List<MapReviewDTO> reviewList(Long id) {
+	public List<MapReviewDTO> reviewList(Long id, int num) {
 		MapDTO map = new MapDTO();
 		Optional<MapDTO> mapdto = mapRepository.findById(id);
 		if (mapdto.isPresent()) {
 			map = mapdto.get();
 		}
 
-		return mapReviewRepository.findByLocation(map);
+//		return mapReviewRepository.findByLocation(map);
+		if (num == 0) {
+			return mapReviewRepository.findByLocationOrderByUpdatedAtDesc(map);
+		} else if (num == 1) {
+			return mapReviewRepository.findByLocation(map);
+		} else if (num == 2) {
+			return mapReviewRepository.findByLocationOrderByRatingDesc(map);
+		} else if (num == 3) {
+			return mapReviewRepository.findByLocationOrderByRatingAsc(map);
+		} else {
+			return mapReviewRepository.findByLocation(map);
+		}
+
 	}
 
 	@Override
@@ -90,11 +103,11 @@ public class MapReviewServiceImpl implements MapReviewService {
 
 		List<MapReviewDTO> dto = mapReviewRepository.findByLocation(map);
 		for (int i = 0; i < dto.size(); i++) {
-		    List<ReviewImgDTO> reviewdtos = reviewImgRepository.findByReview(dto.get(i));
+			List<ReviewImgDTO> reviewdtos = reviewImgRepository.findByReview(dto.get(i));
 
-		    if (reviewdtos != null && !reviewdtos.isEmpty()) {
-		        imgdto.addAll(reviewdtos);
-		    }
+			if (reviewdtos != null && !reviewdtos.isEmpty()) {
+				imgdto.addAll(reviewdtos);
+			}
 		}
 
 		return imgdto;

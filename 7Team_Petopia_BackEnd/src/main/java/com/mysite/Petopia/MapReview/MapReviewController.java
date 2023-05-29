@@ -33,7 +33,7 @@ public class MapReviewController {
 		reviewid = mapReviewServiceImpl.insertReview(mapReviewDTO);
 	}
 
-	@ResponseBody // 리액트에서 데이터를 JSON 형식으로 전달받기 위해 사용
+	@ResponseBody
 	@RequestMapping("/mapReviewImgUpload")
 	public void upload(@RequestParam MultipartFile[] uploadfiles) throws IOException {
 		for (MultipartFile file : uploadfiles) {
@@ -46,8 +46,8 @@ public class MapReviewController {
 	}
 
 	@RequestMapping("/mapReviewList")
-	public List<MapReviewDTO> mapReviewList(@RequestParam("id") Long id) {
-		return mapReviewServiceImpl.reviewList(id);
+	public List<MapReviewDTO> mapReviewList(@RequestParam("id") Long id,@RequestParam("num") int num) {
+		return mapReviewServiceImpl.reviewList(id,num);
 	}
 
 	@RequestMapping("/mapImgList")
