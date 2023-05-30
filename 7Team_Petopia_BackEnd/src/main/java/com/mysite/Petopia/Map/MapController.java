@@ -20,10 +20,15 @@ public class MapController {
 	public List<MapDTO> mapServiceList() {
 		return mapServiceImpl.getmaplist();
 	}
-
+//
+//	@RequestMapping("/getplace")
+//	public MapDTO mapPlace(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
+//		return mapServiceImpl.findByLatAndLng(lat, lng);
+//	}
+	
 	@RequestMapping("/getplace")
-	public MapDTO mapPlace(@RequestParam("lat") double lat, @RequestParam("lng") double lng) {
-		return mapServiceImpl.findByLatAndLng(lat, lng);
+	public MapDTO mapPlace(@RequestParam("id") Long id) {
+		return mapServiceImpl.findplace(id);
 	}
 
 }

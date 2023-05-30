@@ -6,8 +6,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.mysite.Petopia.MapReview.MapReviewDTO;
+import com.mysite.Petopia.MapReview.MapReviewRepository;
+import com.mysite.Petopia.MapReview.ReviewImgRepository;
 import com.mysite.Petopia.Users.UserRepository;
 import com.mysite.Petopia.Users.UsersDTO;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -16,13 +20,30 @@ public class ReviewServiceImpl implements ReviewService {
 
 	private UserRepository userRepository;
 
-	public ReviewServiceImpl(ReviewRepository reviewRepository, UserRepository userRepository) {
+	private MapReviewRepository mapReviewRepository;
+
+	private ReviewImgRepository reviewImgRepository;
+
+	public ReviewServiceImpl(ReviewRepository reviewRepository, UserRepository userRepository,
+			MapReviewRepository mapReviewRepository, ReviewImgRepository reviewImgRepository) {
 		this.reviewRepository = reviewRepository;
 		this.userRepository = userRepository;
+		this.mapReviewRepository = mapReviewRepository;
+		this.reviewImgRepository = reviewImgRepository;
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(List<Long> id) {
+		MapReviewDTO reviewdto = new MapReviewDTO();
+		Optional<MapReviewDTO> dto;
+		for (int i = 0; i < id.size(); i++) {
+			dto = mapReviewRepository.findById(id.get(i));
+			if (dto.isPresent()) {
+				reviewdto = dto.get();
+				reviewImgRepository.deleteAllByReview(reviewdto);
+			}
+		}
 		reviewRepository.deleteById(id);
 	}
 
@@ -32,7 +53,7 @@ public class ReviewServiceImpl implements ReviewService {
 		UsersDTO dto = new UsersDTO();
 		if (optionaldto.isPresent()) {
 			dto = optionaldto.get();
-		}else {
+		} else {
 			System.out.println("이메일이 존재하지 않음");
 		}
 		return reviewRepository.findByWriter(dto);
