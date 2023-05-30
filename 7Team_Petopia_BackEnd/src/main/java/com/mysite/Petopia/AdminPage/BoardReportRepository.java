@@ -12,12 +12,14 @@ import jakarta.transaction.Transactional;
 
 public interface BoardReportRepository extends JpaRepository<BoardReportDTO, Long>{
 
-	List<BoardReportDTO> findAllByOrderByReportDateDesc();
-
+	List<BoardReportDTO> findAllByOrderByPostIdAscReportDateDesc();
+	
 	@Modifying
 	@Transactional
 	@Query(value="update post_reports set processing_status = :status where id = :id", nativeQuery=true)
 	void updateBoardReport(Long id, String status);
 
 	public void deleteByPost_id(Long id);
+
+	
 }
