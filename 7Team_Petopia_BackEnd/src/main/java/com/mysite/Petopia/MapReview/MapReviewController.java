@@ -2,57 +2,50 @@ package com.mysite.Petopia.MapReview;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mysite.Petopia.Board.BoardDTO;
+import com.mysite.Petopia.Board.BoardService;
+
 @RestController
+@RequestMapping("/review")
 public class MapReviewController {
 
-	private MapReviewServiceImpl mapReviewServiceImpl;
+	private MapReviewService reviewservice;
+
+	public MapReviewController(MapReviewService reviewservice) {
+		super();
+		this.reviewservice = reviewservice;
+	}
 
 	Long reviewid;
 
-	@Value("${spring.servlet.multipart.location}")
-	String uploadDir;
-
-	public MapReviewController(MapReviewServiceImpl mapReviewServiceImpl) {
-		this.mapReviewServiceImpl = mapReviewServiceImpl;
+	// 리뷰 작성
+	@RequestMapping("/write")
+	public Long insertReview(@RequestBody MapReviewDTO reviewDTO) {
+		reviewid = reviewservice.insertReview(reviewDTO.getWriter(),
+				reviewDTO.getRating(), reviewDTO.getContent(), reviewDTO.getCost(),
+				reviewDTO.getLocation(), reviewDTO.getPriceType(), reviewDTO.getPriceLevel());
+		return reviewid;
 	}
 
-	@RequestMapping("/mapReviewWrite")
-	public void insertinquiry(@RequestBody MapReviewDTO mapReviewDTO) {
-		reviewid = mapReviewServiceImpl.insertReview(mapReviewDTO);
-	}
-
-	@ResponseBody
-	@RequestMapping("/mapReviewImgUpload")
-	public void upload(@RequestParam MultipartFile[] uploadfiles) throws IOException {
+	// 파일 업로드
+	@RequestMapping("/uploadfiles")
+	public void uploadfiles(@RequestBody MultipartFile[] uploadfiles) throws IOException {
 		for (MultipartFile file : uploadfiles) {
 			if (!file.isEmpty()) {
-				File storedFilename = new File(UUID.randomUUID().toString());
+				File storedFilename = new File(UUID.randomUUID().toString().replaceAll("-", "") + ".jpg");
 				file.transferTo(storedFilename);
-				mapReviewServiceImpl.reviewimgupload(storedFilename.toString(), reviewid);
+				MapReviewDTO reviewDTO = new MapReviewDTO();
+				reviewDTO.setId(reviewid);
+				reviewservice.saveuploadfiles(storedFilename.toString(), reviewDTO);
 			}
 		}
-	}
-
-	@RequestMapping("/mapReviewList")
-	public List<MapReviewDTO> mapReviewList(@RequestParam("id") Long id,@RequestParam("num") int num) {
-		return mapReviewServiceImpl.reviewList(id,num);
-	}
-
-	@RequestMapping("/mapImgList")
-	public List<ReviewImgDTO> mapImgList(@RequestParam("id") Long id) {
-		return mapReviewServiceImpl.reviewImgList(id);
 	}
 
 }

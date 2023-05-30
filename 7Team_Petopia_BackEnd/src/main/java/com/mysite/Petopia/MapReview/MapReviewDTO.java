@@ -1,7 +1,7 @@
 package com.mysite.Petopia.MapReview;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.mysite.Petopia.Map.MapDTO;
 import com.mysite.Petopia.Users.UsersDTO;
@@ -37,21 +37,20 @@ public class MapReviewDTO {
     private UsersDTO writer;
 
     @Column(name = "rating", nullable = false)
-    private Integer rating;
+    private int rating;
 
     @Column(name = "content")
     private String content;
-    
+
     @Column(name = "medical_cost")
     private Integer medicalCost;
-    
+
     @Column(name = "surgery_cost")
     private Integer surgeryCost;
 
     @Column(name = "cost", nullable = false)
-    private Integer cost;
+    private int cost;
 
-    
     @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_reviews_location_id"))
     private MapDTO location;
@@ -60,16 +59,19 @@ public class MapReviewDTO {
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "price_type", nullable = false)
+    private PriceType priceType;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "price_level", nullable = false)
     private PriceLevel priceLevel;
-    
-	@Transient
-	private String username;
-	
-	@Transient
-	private Long mapid;
-	
-    
+
+    @Transient
+    private String username;
+
+    @Transient
+    private Long mapid;
+
     public enum PriceLevel {
         CHEAP,
         MODERATE,
