@@ -52,4 +52,9 @@ public interface BoardRepository extends JpaRepository<BoardDTO, Long>{
 	@Query(value="update posts set likes = likes - 1 where id = :id", nativeQuery=true)
 	public void deleteInterest(Long id);
 
+	@Modifying
+	@Transactional
+	@Query(value="update posts set report_count = report_count + 1 where id = :id", nativeQuery=true)
+	public void reportBoard(Long id);
+
 }
