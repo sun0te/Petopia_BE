@@ -1,5 +1,6 @@
 package com.mysite.Petopia.Board.Notice;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "notice")
-public class NoticeDTO {
+public class NoticeDTO implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,16 +51,10 @@ public class NoticeDTO {
     @Column(name = "thumbnail_image")
     private String thumbnailImage;
 
-    @Column(name = "report_count")
-    private int reportCount;
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-    
-    //공지 이미지 테이블 연결
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NoticeImageDTO> images;
+
 }
