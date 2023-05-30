@@ -3,6 +3,7 @@ package com.mysite.Petopia.AdminPage;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mysite.Petopia.AdminPage.BoardReportDTO.ProcessingStatus;
@@ -36,7 +37,7 @@ public class BoardReportService {
 	}
 
 	public List<BoardReportDTO> selectBoardReportlist() {
-		return repository.findAllByOrderByReportDateDesc();
+		return repository.findAllByOrderByPostIdAscReportDateDesc();
 	}
 	
 	public void updateBoardReport(Long id, ProcessingStatus status) {
