@@ -27,14 +27,4 @@ public class NoticeImageDTO {
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
-
-    // 추가: Lombok의 @Getter와 @Setter를 사용하여 getter와 setter 메서드 자동 생성
-    public NoticeDTO getPost() {
-        return post;
-    }
-
-    public void setPost(NoticeDTO post) {
-        this.post = post;
-    }
 }
-
