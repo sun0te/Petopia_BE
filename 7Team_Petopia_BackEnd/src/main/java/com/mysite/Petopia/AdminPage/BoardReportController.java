@@ -20,7 +20,7 @@ public class BoardReportController {
 	
 	@PostMapping("/boardreport")
     public void insertBoardReport(@RequestBody BoardReportDTO boardReportDTO) {
-		service.insertBoardReport(boardReportDTO.getBoard(), boardReportDTO.getReporter(), boardReportDTO.getReason(), boardReportDTO.getOtherReason(), boardReportDTO.getProcessingStatus());
+		service.insertBoardReport(boardReportDTO.getPost(), boardReportDTO.getReporter(), boardReportDTO.getReason(), boardReportDTO.getOtherReason(), boardReportDTO.getProcessingStatus());
     }
 	
 	@GetMapping("/boardreportlist")

@@ -30,7 +30,7 @@ public class BoardReportDTO {
 
     @ManyToOne
     @JoinColumn(name = "post_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_post_reports_post_id"))
-    private BoardDTO board;
+    private BoardDTO post;
 
     @Column(name = "report_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime reportDate;
