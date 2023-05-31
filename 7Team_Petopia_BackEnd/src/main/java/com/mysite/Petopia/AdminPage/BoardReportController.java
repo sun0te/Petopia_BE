@@ -23,6 +23,11 @@ public class BoardReportController {
 		service.insertBoardReport(boardReportDTO.getPost(), boardReportDTO.getReporter(), boardReportDTO.getReason(), boardReportDTO.getOtherReason(), boardReportDTO.getProcessingStatus());
     }
 	
+	@PostMapping("/reviewreport")
+    public void insertReviewReport(@RequestBody BoardReportDTO boardReportDTO) {
+		service.insertReviewReport(boardReportDTO.getReview(), boardReportDTO.getReporter(), boardReportDTO.getReason(), boardReportDTO.getOtherReason(), boardReportDTO.getProcessingStatus());
+    }
+	
 	@GetMapping("/boardreportlist")
     public List<BoardReportDTO> selectBoardReportlist() {
 		return service.selectBoardReportlist();
