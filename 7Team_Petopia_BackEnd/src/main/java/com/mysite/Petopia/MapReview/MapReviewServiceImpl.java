@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.mysite.Petopia.AdminPage.BoardReportRepository;
 import com.mysite.Petopia.Board.BoardDTO;
 import com.mysite.Petopia.Board.BoardImgDTO;
 import com.mysite.Petopia.Map.MapDTO;

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.mysite.Petopia.AdminPage.BoardReportRepository;
 import com.mysite.Petopia.MapReview.MapReviewDTO;
 import com.mysite.Petopia.MapReview.MapReviewRepository;
 import com.mysite.Petopia.MapReview.ReviewImgRepository;
@@ -24,12 +25,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	private ReviewImgRepository reviewImgRepository;
 
+	private BoardReportRepository boardReportRepository;
+
 	public ReviewServiceImpl(ReviewRepository reviewRepository, UserRepository userRepository,
-			MapReviewRepository mapReviewRepository, ReviewImgRepository reviewImgRepository) {
+			MapReviewRepository mapReviewRepository, ReviewImgRepository reviewImgRepository,
+			BoardReportRepository boardReportRepository) {
 		this.reviewRepository = reviewRepository;
 		this.userRepository = userRepository;
 		this.mapReviewRepository = mapReviewRepository;
 		this.reviewImgRepository = reviewImgRepository;
+		this.boardReportRepository = boardReportRepository;
 	}
 
 	@Override
@@ -44,6 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
 				reviewImgRepository.deleteAllByReview(reviewdto);
 			}
 		}
+		boardReportRepository.deleteByReview_id(id.get(0));
 		reviewRepository.deleteById(id);
 	}
 

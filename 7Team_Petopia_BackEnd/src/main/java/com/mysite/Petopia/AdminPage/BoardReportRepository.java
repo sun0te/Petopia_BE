@@ -20,6 +20,8 @@ public interface BoardReportRepository extends JpaRepository<BoardReportDTO, Lon
 	void updateBoardReport(Long id, String status);
 
 	public void deleteByPost_id(Long id);
+	
+	public void deleteByReview_id(Long id);
 
 	
 }

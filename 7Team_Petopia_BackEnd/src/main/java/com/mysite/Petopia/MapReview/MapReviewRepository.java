@@ -3,8 +3,12 @@ package com.mysite.Petopia.MapReview;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import com.mysite.Petopia.Map.MapDTO;
+
+import jakarta.transaction.Transactional;
 
 public interface MapReviewRepository extends JpaRepository<MapReviewDTO, Long> {
 
@@ -15,4 +19,9 @@ public interface MapReviewRepository extends JpaRepository<MapReviewDTO, Long> {
 	List<MapReviewDTO> findByLocationOrderByRatingDesc(MapDTO mapdto);
 	
 	List<MapReviewDTO> findByLocationOrderByRatingAsc(MapDTO mapdto);
+
+	@Modifying
+	@Transactional
+	@Query(value="update reviews set report_count = report_count + 1 where id = :id", nativeQuery=true)
+	public void reportReview(Long id);
 }

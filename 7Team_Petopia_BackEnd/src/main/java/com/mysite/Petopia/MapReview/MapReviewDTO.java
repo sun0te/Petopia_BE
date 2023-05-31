@@ -50,7 +50,9 @@ public class MapReviewDTO {
 
     @Column(name = "cost", nullable = false)
     private Integer cost;
-
+    
+    @Column(name = "report_count", nullable = false, columnDefinition = "INT DEFAULT 0")
+    private int reportCount;
     
     @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_reviews_location_id"))

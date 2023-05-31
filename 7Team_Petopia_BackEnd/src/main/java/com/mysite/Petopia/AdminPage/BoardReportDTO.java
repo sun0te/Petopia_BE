@@ -3,6 +3,7 @@ package com.mysite.Petopia.AdminPage;
 import java.time.LocalDateTime;
 
 import com.mysite.Petopia.Board.BoardDTO;
+import com.mysite.Petopia.MapReview.MapReviewDTO;
 import com.mysite.Petopia.Users.UsersDTO;
 
 import jakarta.persistence.Column;
@@ -31,6 +32,10 @@ public class BoardReportDTO {
     @ManyToOne
     @JoinColumn(name = "post_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_post_reports_post_id"))
     private BoardDTO post;
+    
+    @ManyToOne
+    @JoinColumn(name = "map_review_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_post_reports_map_review_id"))
+    private MapReviewDTO review;
 
     @Column(name = "report_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime reportDate;
