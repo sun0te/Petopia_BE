@@ -1,6 +1,7 @@
 package com.mysite.Petopia.UserMypage;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,15 @@ public class UserInterestService {
 		boardRepository.deleteInterest(post_id.getId());
 		repository.deleteByPost_idAndUser_email(post_id.getId(), user_email.getEmail());
 	}
-	
+
+	@Transactional
+	public int deleteByUser_email(String user_email) {
+		return repository.deleteByUser_email(user_email);
+		
+	}
+
+	public List<UserInterestDTO> findAllByUser_email(String user_email) {
+		return repository.findAllByUser_email(user_email);
+	}
+
 }
