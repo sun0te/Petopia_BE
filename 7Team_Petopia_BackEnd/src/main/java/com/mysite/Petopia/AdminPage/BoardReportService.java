@@ -1,6 +1,7 @@
 package com.mysite.Petopia.AdminPage;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -58,8 +59,15 @@ public class BoardReportService {
 		mapReviewRepository.reportReview(review.getId());
 	}
 
-	public List<BoardReportDTO> selectBoardReportlist() {
-		return repository.findAllByOrderByPostIdAscReportDateDesc();
+	public List<BoardReportDTO> selectBoardReportlist(int num) {
+//		return repository.findAllByOrderByPostIdAscReportDateDesc();
+		if (num == 0) {
+	        return repository.findByReviewIsNullOrderByReportDateDesc();
+	    } else if (num == 1) {
+	        return repository.findByPostIsNullOrderByReportDateDesc();
+	    } else {
+	        return Collections.emptyList(); 
+	    }
 	}
 
 	public void updateBoardReport(Long id, ProcessingStatus status) {

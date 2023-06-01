@@ -82,9 +82,9 @@ public class MapReviewServiceImpl implements MapReviewService {
 		} else if (num == 1) {
 			return mapReviewRepository.findByLocation(map);
 		} else if (num == 2) {
-			return mapReviewRepository.findByLocationOrderByRatingDesc(map);
+			return mapReviewRepository.findByLocationOrderByRatingDescUpdatedAtDesc(map);
 		} else if (num == 3) {
-			return mapReviewRepository.findByLocationOrderByRatingAsc(map);
+			return mapReviewRepository.findByLocationOrderByRatingAscUpdatedAtDesc(map);
 		} else {
 			return mapReviewRepository.findByLocation(map);
 		}

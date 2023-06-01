@@ -14,6 +14,12 @@ public interface BoardReportRepository extends JpaRepository<BoardReportDTO, Lon
 
 	List<BoardReportDTO> findAllByOrderByPostIdAscReportDateDesc();
 	
+	List<BoardReportDTO> findAllByOrderByReportDateDesc();
+	
+	List<BoardReportDTO> findByReviewIsNullOrderByReportDateDesc();
+	
+	List<BoardReportDTO> findByPostIsNullOrderByReportDateDesc();
+	
 	@Modifying
 	@Transactional
 	@Query(value="update post_reports set processing_status = :status where id = :id", nativeQuery=true)

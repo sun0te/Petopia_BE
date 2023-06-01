@@ -16,9 +16,9 @@ public interface MapReviewRepository extends JpaRepository<MapReviewDTO, Long> {
 
 	List<MapReviewDTO> findByLocationOrderByUpdatedAtDesc(MapDTO mapdto);
 
-	List<MapReviewDTO> findByLocationOrderByRatingDesc(MapDTO mapdto);
+	List<MapReviewDTO> findByLocationOrderByRatingDescUpdatedAtDesc(MapDTO mapdto);
 	
-	List<MapReviewDTO> findByLocationOrderByRatingAsc(MapDTO mapdto);
+	List<MapReviewDTO> findByLocationOrderByRatingAscUpdatedAtDesc(MapDTO mapdto);
 
 	@Modifying
 	@Transactional
