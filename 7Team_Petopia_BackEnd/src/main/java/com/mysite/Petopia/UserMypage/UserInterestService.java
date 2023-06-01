@@ -79,5 +79,15 @@ public class UserInterestService {
 
 		return boardDTO;
 	}
+	
+	@Transactional
+	public int deleteByUser_email(String user_email) {
+		return repository.deleteByUser_email(user_email);
+
+	}
+
+	public List<UserInterestDTO> findAllByUser_email(String user_email) {
+		return repository.findAllByUser_email(user_email);
+	}
 
 }

@@ -23,5 +23,11 @@ public interface BoardReportRepository extends JpaRepository<BoardReportDTO, Lon
 	
 	public void deleteByReview_id(Long id);
 
+	void deleteByReporter_email(String email);
+
+	// 게시글 삭제를 위한 리포트 리스트 get
+	List<BoardReportDTO> getByReporter_email(String email);
+
+	void deleteAllByReporter_email(String email);
 	
 }
