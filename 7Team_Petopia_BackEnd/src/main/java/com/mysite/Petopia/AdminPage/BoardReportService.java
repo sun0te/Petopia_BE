@@ -44,4 +44,19 @@ public class BoardReportService {
 		String temp = status.toString();
 		repository.updateBoardReport(id, temp);
 	}
+	
+	//삭제를 위한 리포트 리스트 get
+	public List<BoardReportDTO> getByReporter_email(String email) {
+		return repository.getByReporter_email(email);
+	}
+
+	// 해당 계정이 리포트한 데이터 삭제
+	public void deleteByEmail(String email) {
+		
+	}
+
+	public void deleteAllByReporter_email(String email) {
+		repository.deleteAllByReporter_email(email);
+		
+	}
 }

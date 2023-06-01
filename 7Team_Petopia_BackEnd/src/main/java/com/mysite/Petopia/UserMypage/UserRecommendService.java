@@ -1,6 +1,7 @@
 package com.mysite.Petopia.UserMypage;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,15 @@ public class UserRecommendService {
 	public void deleteRecommend(BoardDTO post_id, UsersDTO user_email) {
 		boardRepository.deleteRecommend(post_id.getId());
 		repository.deleteByPost_idAndUser_email(post_id.getId(), user_email.getEmail());
+	}
+
+	public void deleteAllByUser_email(String email) {
+		repository.deleteAllByUser_email(email);
+		
+	}
+
+	public List<UserRecommendDTO> findAllByUser_email(String user_email) {
+		return repository.findAllByUser_email(user_email);
 	}
 	
 	

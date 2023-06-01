@@ -6,13 +6,35 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mysite.Petopia.AdminPage.BoardReportRepository;
+import com.mysite.Petopia.Board.BoardDTO;
+import com.mysite.Petopia.Board.BoardImgRepository;
+import com.mysite.Petopia.Board.BoardRepository;
+import com.mysite.Petopia.Board.Travel.TravelRepository;
+import com.mysite.Petopia.UserMypage.UserInterestRepository;
+import com.mysite.Petopia.UserMypage.UserRecommendRepository;
+
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
 
 	private UserRepository repository;
+	private BoardRepository boardRepository;
+	private BoardImgRepository imgRepository;
+	private TravelRepository travelRepository;
+	private UserRecommendRepository userRecommendRepository;
+	private UserInterestRepository userInterestRepository;
+	private BoardReportRepository boardReportRepository;
 	
-	public UserService(UserRepository repository) {
+	public UserService(UserRepository repository, BoardRepository boardRepository, BoardImgRepository imgRepository, TravelRepository travelRepository, UserRecommendRepository userRecommendRepository, UserInterestRepository userInterestRepository, BoardReportRepository boardReportRepository) {
 		this.repository = repository;
+		this.boardRepository = boardRepository;
+		this.imgRepository = imgRepository;
+		this.travelRepository = travelRepository;
+		this.userRecommendRepository = userRecommendRepository;
+		this.userInterestRepository = userInterestRepository;
+		this.boardReportRepository = boardReportRepository;
 	}
 	
 	public void insertUserPetopia(String email, String provider, String password, String name, String nickname, LocalDate birthday, String profileImage) {
@@ -48,5 +70,11 @@ public class UserService {
 	
 	public void updateUserInfo(String email, String name, String nickname, String password) {
 		repository.updateUserInfo(email, name, nickname, password);
+	}
+	
+	//회원탈퇴
+	@Transactional
+	public void deleteUserInfo(String email) {
+		repository.deleteByEmail(email);
 	}
 }
