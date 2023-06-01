@@ -10,6 +10,7 @@ import com.mysite.Petopia.Board.BoardDTO.BoardCategory;
 import com.mysite.Petopia.Board.Travel.TravelRepository;
 import com.mysite.Petopia.UserMypage.UserInterestRepository;
 import com.mysite.Petopia.UserMypage.UserRecommendRepository;
+
 import com.mysite.Petopia.Users.UsersDTO;
 
 import jakarta.transaction.Transactional;
@@ -76,9 +77,9 @@ public class BoardService {
 	}
 	
 	// 게시글 수정
-		public void updateBoard(Long id, String title, String content) {
-			repository.updateBoard(id, title, content);
-		}
+	public void updateBoard(Long id, String title, String content) {
+		repository.updateBoard(id, title, content);
+	}
 	
 	// 여행추천 Best
 	public List<BoardDTO> selectTravelBoardBest(BoardCategory category) {
@@ -86,8 +87,27 @@ public class BoardService {
 	}
 	
 	// 여행추천 All
-		public List<BoardDTO> selectBoardAll(BoardCategory category) {
-			return repository.findByCategoryOrderByCreatedAtDesc(category);
-		}
+	public List<BoardDTO> selectBoardAll(BoardCategory category) {
+		return repository.findByCategoryOrderByCreatedAtDesc(category);
+	}
+
+	public List<BoardDTO> getByAuthor_email(String email) {
+		return repository.getByAuthor_email(email);
+	}
+	
+	// 게시글 추천 감소
+	public void deleteRecommend(Long id) {
+		repository.deleteRecommend(id);
+	}
+
+	// 게시글 좋아요 감소
+	public void deleteInterest(Long id) {
+		repository.deleteInterest(id);
+	}
+
+	// 게시글 신고 감소
+	public void deleteReportBoard(Long id) {
+		repository.deleteReportBoard(id);
+	}
 	
 }
