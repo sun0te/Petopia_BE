@@ -10,7 +10,6 @@ import com.mysite.Petopia.AdminPage.BoardReportDTO.ProcessingStatus;
 import com.mysite.Petopia.AdminPage.BoardReportDTO.ReportReason;
 import com.mysite.Petopia.Board.BoardDTO;
 import com.mysite.Petopia.Board.BoardRepository;
-import com.mysite.Petopia.Map.MapRepository;
 import com.mysite.Petopia.MapReview.MapReviewDTO;
 import com.mysite.Petopia.MapReview.MapReviewRepository;
 import com.mysite.Petopia.Users.UsersDTO;
