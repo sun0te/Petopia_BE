@@ -37,7 +37,8 @@ public interface UserRepository extends JpaRepository<UsersDTO, String> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "update users set name = :name, nickname = :nickname, password = :password where email = :email", nativeQuery = true)
+	@Query(value="update users set name = :name, nickname = :nickname, password = :password where email = :email", nativeQuery = true)
 	void updateUserInfo(String email, String name, String nickname, String password);
 
+	
 }
