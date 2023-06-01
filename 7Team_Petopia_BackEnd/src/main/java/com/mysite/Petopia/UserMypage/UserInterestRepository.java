@@ -20,4 +20,6 @@ public interface UserInterestRepository extends JpaRepository<UserInterestDTO, L
 
 	public List<UserInterestDTO> findAllByUser_email(String user_email);
 
+	public List<UserInterestDTO> findByUser(UsersDTO userdto);
+
 }
