@@ -11,4 +11,6 @@ public interface ReviewImgRepository extends JpaRepository<ReviewImgDTO, Long> {
 
 	List<ReviewImgDTO> findByReview(MapReviewDTO dto);
 
+	void deleteByReview_id(Long review_id);
+
 }

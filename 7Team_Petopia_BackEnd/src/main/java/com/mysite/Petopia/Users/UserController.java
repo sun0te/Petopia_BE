@@ -112,39 +112,47 @@ public class UserController {
 			boardService.deleteBoard(boardDTO.getId());
 		}
 		
+		// 신고 삭제
+		boardReportService.deleteByReporter_email(users.getEmail());
+		
+		// 작성한 리뷰 이미지 삭제, 다른 계정의 신고 삭제, 리뷰 삭제
+		List<MapReviewDTO> mapReviewDTOList1 = reviewService.findByWriter(users.getEmail());
+		for(MapReviewDTO mapreviewDTO : mapReviewDTOList1) {
+			reviewImgRepository.deleteAllByReview(mapreviewDTO);
+			boardReportService.deleteByReview_id(mapreviewDTO.getId());
+			mapReviewService.deleteById(mapreviewDTO.getId());
+		}
+		
 		String user_email = users.getEmail();
 		// 계정이 report 한 게시글의 신고 숫자 감소 로직 + report 데이터 삭제
-		List<BoardReportDTO> boardReportDTOList = boardReportService.getByReporter_email(user_email);
+		List<BoardReportDTO> boardReportDTOList = boardReportService.getByReporter_email(users.getEmail());
 		for(BoardReportDTO boardReportDTO: boardReportDTOList) {
-			boardService.deleteReportBoard(boardReportDTO.getPost().getId());
+			if(boardReportDTO.getPost() != null) {
+				boardService.deleteReportBoard(boardReportDTO.getPost().getId());
+			}
+			if(boardReportDTO.getReview() != null) {
+				mapReviewService.deleteReportReview(boardReportDTO.getReview().getId());
+			}
 		}
-		boardReportService.deleteAllByReporter_email(users.getEmail());
+		boardReportService.deleteByReporter_email(users.getEmail());
 		
 		// 계정이 recommend 한 게시글의 추천 숫자 감소 로직 + recommend 데이터 삭제
-		List<UserRecommendDTO> userRecommendDTOList = userRecommendService.findAllByUser_email(user_email);
+		List<UserRecommendDTO> userRecommendDTOList = userRecommendService.findAllByUser_email(users.getEmail());
 		for(UserRecommendDTO recommend: userRecommendDTOList) {
 			boardService.deleteRecommend(recommend.getPost().getId());
 		}
 		userRecommendService.deleteAllByUser_email(users.getEmail());
 		
 		// 계정이 interest 한 게시글의 좋아요 숫자 감소 로직 + interest 데이터 삭제
-		List<UserInterestDTO> userInterestDTOList = userInterestService.findAllByUser_email(user_email);
+		List<UserInterestDTO> userInterestDTOList = userInterestService.findAllByUser_email(users.getEmail());
 		for(UserInterestDTO interest: userInterestDTOList) {
 			boardService.deleteInterest(interest.getPost().getId());
 		}
 
-		// 작성한 리뷰 이미지 삭제, 리뷰 삭제
-		List<MapReviewDTO> mapReviewDTOList = reviewService.findByWriter(user_email);
-		for(MapReviewDTO mapreviewDTO : mapReviewDTOList) {
-			reviewImgRepository.deleteAllByReview(mapreviewDTO);
-		}
-		reviewService.deleteByWriter_email(user_email);
-		
-		
 		userInterestService.deleteByUser_email(user_email);
 		inquiryService.deleteByUser_email(user_email);
 		
 		userService.deleteUserInfo(users.getEmail());
 	}
-	
+
 }
