@@ -115,4 +115,9 @@ public class InquiryServiceImpl implements InquiryService {
 		return inquiryRepository.save(dto);
 	}
 
+	public void deleteByUser_email(String user_email) {
+		inquiryRepository.deleteByUser_email(user_email);
+		
+	}
+
 }

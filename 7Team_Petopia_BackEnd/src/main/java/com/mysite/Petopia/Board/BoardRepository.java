@@ -31,6 +31,9 @@ public interface BoardRepository extends JpaRepository<BoardDTO, Long>{
 	
 	// 여행추천 All
 	public List<BoardDTO> findByCategoryOrderByCreatedAtDesc(BoardCategory category);
+	
+	// 여행추천 Best5
+	public List<BoardDTO> findTop5ByCategoryOrderByRecommendsDesc(BoardCategory category);
 
 	@Modifying
 	@Transactional
@@ -65,5 +68,7 @@ public interface BoardRepository extends JpaRepository<BoardDTO, Long>{
 	public void deleteAllByAuthor_email(String email);
 
 	public List<BoardDTO> getByAuthor_email(String email);
+
+	
 
 }

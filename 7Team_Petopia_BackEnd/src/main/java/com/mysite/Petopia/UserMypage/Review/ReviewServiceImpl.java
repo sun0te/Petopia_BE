@@ -66,4 +66,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewRepository.findByWriter(dto);
 	}
 
+	public void deleteByWriter_email(String user_email) {
+		String writer_email = user_email;
+		reviewRepository.deleteByWriter_email(writer_email);
+		
+	}
+
+
 }

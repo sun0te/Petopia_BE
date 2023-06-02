@@ -90,6 +90,11 @@ public class BoardService {
 	public List<BoardDTO> selectBoardAll(BoardCategory category) {
 		return repository.findByCategoryOrderByCreatedAtDesc(category);
 	}
+	
+	// 여행추천 Best5
+	public List<BoardDTO> selectTravelBoardBest5(BoardCategory category) {
+		return repository.findTop5ByCategoryOrderByRecommendsDesc(category);
+	}
 
 	public List<BoardDTO> getByAuthor_email(String email) {
 		return repository.getByAuthor_email(email);

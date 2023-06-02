@@ -97,7 +97,7 @@ public class BoardController {
 		}
 	}
 	
-	// 여행추천 Best
+	// 여행추천 Best3
 	@PostMapping("/travelboard/travelbest")
 	public List<BoardDTO> selectTravelBoardBest(@RequestBody BoardDTO board) {
 		return (List<BoardDTO>)boardService.selectTravelBoardBest(board.getCategory());
@@ -107,5 +107,11 @@ public class BoardController {
 	@PostMapping("/travelboard/travelall")
 	public List<BoardDTO> selectBoardAll(@RequestBody BoardDTO board) {
 		return (List<BoardDTO>)boardService.selectBoardAll(board.getCategory());
+	}
+	
+	// 여행추천 Best5
+	@PostMapping("/travelboard/travelbest5")
+	public List<BoardDTO> selectTravelBoardBest5(@RequestBody BoardDTO board) {
+		return (List<BoardDTO>)boardService.selectTravelBoardBest5(board.getCategory());
 	}
 }
