@@ -10,4 +10,6 @@ public interface InquiryRepository extends JpaRepository<InquiryDTO, Long> {
 
 	List<InquiryDTO> findByUser(UsersDTO user);
 
+	void deleteByUser_email(String user_email);
+
 }

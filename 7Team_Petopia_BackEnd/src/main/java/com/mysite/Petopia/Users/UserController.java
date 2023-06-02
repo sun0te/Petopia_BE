@@ -10,10 +10,15 @@ import com.mysite.Petopia.AdminPage.BoardReportDTO;
 import com.mysite.Petopia.AdminPage.BoardReportService;
 import com.mysite.Petopia.Board.BoardDTO;
 import com.mysite.Petopia.Board.BoardService;
+import com.mysite.Petopia.MapReview.MapReviewDTO;
+import com.mysite.Petopia.MapReview.MapReviewServiceImpl;
+import com.mysite.Petopia.MapReview.ReviewImgRepository;
 import com.mysite.Petopia.UserMypage.UserInterestDTO;
 import com.mysite.Petopia.UserMypage.UserInterestService;
 import com.mysite.Petopia.UserMypage.UserRecommendDTO;
 import com.mysite.Petopia.UserMypage.UserRecommendService;
+import com.mysite.Petopia.UserMypage.Inquiry.InquiryServiceImpl;
+import com.mysite.Petopia.UserMypage.Review.ReviewServiceImpl;
 
 import jakarta.transaction.Transactional;
 
@@ -27,15 +32,27 @@ public class UserController {
 	private BoardReportService boardReportService;
 	private UserInterestService userInterestService;
 	private UserRecommendService userRecommendService;
+	private InquiryServiceImpl inquiryService;
+	private ReviewServiceImpl reviewService;
+	private MapReviewServiceImpl mapReviewService;
+	
+	private ReviewImgRepository reviewImgRepository;
 
 	public UserController(UserService userService, BoardService boardService, BoardReportService boardReportService,
-			UserInterestService userInterestService, UserRecommendService userRecommendService) {
+			UserInterestService userInterestService, UserRecommendService userRecommendService, 
+			InquiryServiceImpl inquiryService, ReviewServiceImpl reviewService, MapReviewServiceImpl mapReviewService,
+			ReviewImgRepository reviewImgRepository) {
 		super();
 		this.userService = userService;
 		this.boardService = boardService;
 		this.boardReportService = boardReportService;
 		this.userInterestService = userInterestService;
 		this.userRecommendService = userRecommendService;
+		this.inquiryService = inquiryService;
+		this.reviewService = reviewService;
+		this.mapReviewService = mapReviewService;
+		
+		this.reviewImgRepository = reviewImgRepository;
 	}
 	
 	@RequestMapping("/signuppetopia")
@@ -115,7 +132,17 @@ public class UserController {
 		for(UserInterestDTO interest: userInterestDTOList) {
 			boardService.deleteInterest(interest.getPost().getId());
 		}
+
+		// 작성한 리뷰 이미지 삭제, 리뷰 삭제
+		List<MapReviewDTO> mapReviewDTOList = reviewService.findByWriter(user_email);
+		for(MapReviewDTO mapreviewDTO : mapReviewDTOList) {
+			reviewImgRepository.deleteAllByReview(mapreviewDTO);
+		}
+		reviewService.deleteByWriter_email(user_email);
+		
+		
 		userInterestService.deleteByUser_email(user_email);
+		inquiryService.deleteByUser_email(user_email);
 		
 		userService.deleteUserInfo(users.getEmail());
 	}

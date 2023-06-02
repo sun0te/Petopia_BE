@@ -20,5 +20,7 @@ public interface ReviewRepository extends JpaRepository<MapReviewDTO, Long> {
 	@Transactional
     @Query(value = "delete from reviews where id IN :id", nativeQuery = true)
     void deleteById(@Param("id") List<Long> id);
+	
+	void deleteByWriter_email(String writer_email);
 
 }
