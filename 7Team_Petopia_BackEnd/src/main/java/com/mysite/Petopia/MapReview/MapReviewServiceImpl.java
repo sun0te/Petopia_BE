@@ -14,6 +14,9 @@ import com.mysite.Petopia.Map.MapDTO;
 import com.mysite.Petopia.Map.MapRepository;
 import com.mysite.Petopia.Users.UserRepository;
 import com.mysite.Petopia.Users.UsersDTO;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Sort;
 
 @Service
@@ -23,13 +26,15 @@ public class MapReviewServiceImpl implements MapReviewService {
 	private UserRepository userRepository;
 	private MapRepository mapRepository;
 	private ReviewImgRepository reviewImgRepository;
+	private BoardReportRepository boardReportRepository;
 
 	public MapReviewServiceImpl(MapReviewRepository mapReviewRepository, UserRepository userRepository,
-			MapRepository mapRepository, ReviewImgRepository reviewImgRepository) {
+			MapRepository mapRepository, ReviewImgRepository reviewImgRepository, BoardReportRepository boardReportRepository) {
 		this.mapReviewRepository = mapReviewRepository;
 		this.userRepository = userRepository;
 		this.mapRepository = mapRepository;
 		this.reviewImgRepository = reviewImgRepository;
+		this.boardReportRepository = boardReportRepository;
 	}
 
 	@Override
@@ -113,5 +118,45 @@ public class MapReviewServiceImpl implements MapReviewService {
 
 		return imgdto;
 	}
+
+	public void deleteByWriter_email(String user_email) {
+		String Writer_email = user_email;
+		mapReviewRepository.deleteByWriter_email(Writer_email);
+		
+	}
+	
+	// 게시글 신고 감소
+	public void deleteReportReview(Long id) {
+		mapReviewRepository.deleteReportReview(id);
+	}
+
+
+	public List<MapReviewDTO> getByWriter_email(String email) {
+		return mapReviewRepository.getByWriter_email(email);
+	}
+
+	public void deleteReview(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteById(Long id) {
+		mapReviewRepository.deleteById(id);
+		
+	}
+
+//	@Transactional
+//	// 리뷰 삭제
+//	public void deleteReview(Long id) {
+//		reviewImgRepository.deleteByReview_id(id);
+//		boardReportRepository.deleteAllByMap_review_id(id);
+//		mapReviewRepository.deleteById(id);
+//	}
+	
+	
+	
+		
+	
+
 
 }

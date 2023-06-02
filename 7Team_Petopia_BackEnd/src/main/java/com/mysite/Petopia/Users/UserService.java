@@ -77,4 +77,6 @@ public class UserService {
 	public void deleteUserInfo(String email) {
 		repository.deleteByEmail(email);
 	}
+
+
 }

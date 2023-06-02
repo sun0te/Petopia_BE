@@ -68,7 +68,8 @@ public class BoardReportService {
 	
 	//삭제를 위한 리포트 리스트 get
 	public List<BoardReportDTO> getByReporter_email(String email) {
-		return repository.getByReporter_email(email);
+		String reporter_email = email;
+		return repository.getByReporter_email(reporter_email);
 	}
 
 	// 해당 계정이 리포트한 데이터 삭제
@@ -78,6 +79,24 @@ public class BoardReportService {
 
 	public void deleteAllByReporter_email(String email) {
 		repository.deleteAllByReporter_email(email);
+	}
+
+	public void deleteByReporter_email(String reporter_email) {
+		repository.deleteByReporter_email(reporter_email);
 		
 	}
+
+	public List<BoardReportDTO> findAllByReporter_email(String user_email) {
+		String reporter_email = user_email;
+		return repository.findAllByReporter_email(reporter_email);
+	}
+
+	public void deleteByReview_id(Long id) {
+		repository.deleteByReview_id(id);
+		
+	}
+
+
+
+	
 }

@@ -24,4 +24,15 @@ public interface MapReviewRepository extends JpaRepository<MapReviewDTO, Long> {
 	@Transactional
 	@Query(value="update reviews set report_count = report_count + 1 where id = :id", nativeQuery=true)
 	public void reportReview(Long id);
+
+	void deleteByWriter_email(String writer_email);
+
+
+	@Modifying
+	@Transactional
+	@Query(value="update reviews set report_count = report_count - 1 where id = :id", nativeQuery=true)
+	void deleteReportReview(Long id);
+
+	List<MapReviewDTO> getByWriter_email(String writer_email);
+
 }
