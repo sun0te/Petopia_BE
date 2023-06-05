@@ -21,9 +21,7 @@ import com.mysite.Petopia.UserMypage.Inquiry.InquiryServiceImpl;
 import com.mysite.Petopia.UserMypage.Review.ReviewServiceImpl;
 
 import jakarta.transaction.Transactional;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @RestController
 @RequestMapping("/user")
 public class UserController {
