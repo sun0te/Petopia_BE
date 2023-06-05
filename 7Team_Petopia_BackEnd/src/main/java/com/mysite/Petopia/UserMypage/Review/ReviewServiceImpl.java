@@ -53,7 +53,6 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewRepository.deleteById(id);
 	}
 
-
 	@Override
 	public List<MapReviewDTO> findByWriter(String writer) {
 		Optional<UsersDTO> optionaldto = userRepository.findById(writer);

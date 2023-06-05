@@ -22,7 +22,7 @@ public class ReviewController {
 	public void deleteInquiry(@RequestBody List<Long> id) {
 		reviewServiceImpl.deleteById(id);
 	}
-
+	
 	@RequestMapping("/myreviewlist")
 	public List<MapReviewDTO> getinquirylist(@RequestParam String writer) {
 		return reviewServiceImpl.findByWriter(writer);

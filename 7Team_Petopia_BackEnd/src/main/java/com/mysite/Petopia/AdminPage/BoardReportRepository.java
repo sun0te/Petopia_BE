@@ -14,6 +14,12 @@ public interface BoardReportRepository extends JpaRepository<BoardReportDTO, Lon
 
 	List<BoardReportDTO> findAllByOrderByPostIdAscReportDateDesc();
 	
+	List<BoardReportDTO> findAllByOrderByReportDateDesc();
+	
+	List<BoardReportDTO> findByReviewIsNullOrderByReportDateDesc();
+	
+	List<BoardReportDTO> findByPostIsNullOrderByReportDateDesc();
+	
 	@Modifying
 	@Transactional
 	@Query(value="update post_reports set processing_status = :status where id = :id", nativeQuery=true)
@@ -28,11 +34,10 @@ public interface BoardReportRepository extends JpaRepository<BoardReportDTO, Lon
 	// 게시글 삭제를 위한 리포트 리스트 get
 	List<BoardReportDTO> getByReporter_email(String reporter_email);
 
-	void deleteAllByReporter_email(String reporter_email);
-
 	List<BoardReportDTO> findAllByReporter_email(String reporter_email);
 
 	//void deleteAllByMap_review_id(Long map_review_id);
 
+	void deleteAllByReporter_email(String email);
 	
 }

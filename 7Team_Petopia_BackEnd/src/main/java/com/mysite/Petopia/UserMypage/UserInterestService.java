@@ -50,6 +50,36 @@ public class UserInterestService {
 		repository.deleteByPost_idAndUser_email(post_id.getId(), user_email.getEmail());
 	}
 
+	// 관심목록 리스트
+	public List<BoardDTO> getInterestList(String email) {
+
+		Optional<UsersDTO> optionaldto = userRepository.findById(email);
+		UsersDTO userdto = new UsersDTO();
+		if (optionaldto.isPresent()) {
+			userdto = optionaldto.get();
+		}
+
+		List<BoardDTO> boardDTO = new ArrayList<>();
+		List<UserInterestDTO> dto = repository.findByUser(userdto);
+		
+		Optional<BoardDTO> odto;
+		BoardDTO bdto = null;
+
+		System.out.println("데이터 값 : "+dto.get(0).getId());
+		
+		for (int i = 0; i < dto.size(); i++) {
+//			odto = boardRepository.findById(dto.get(i).getId());
+			odto = boardRepository.findById(dto.get(i).getPost().getId());
+			
+			if (odto.isPresent()) {
+				bdto = odto.get();
+				boardDTO.add(bdto);
+			}
+		}
+
+		return boardDTO;
+	}
+	
 	@Transactional
 	public int deleteByUser_email(String user_email) {
 		return repository.deleteByUser_email(user_email);
@@ -60,33 +90,5 @@ public class UserInterestService {
 		return repository.findAllByUser_email(user_email);
 	}
 
-	// 관심목록 리스트
-		public List<BoardDTO> getInterestList(String email) {
 
-			Optional<UsersDTO> optionaldto = userRepository.findById(email);
-			UsersDTO userdto = new UsersDTO();
-			if (optionaldto.isPresent()) {
-				userdto = optionaldto.get();
-			}
-
-			List<BoardDTO> boardDTO = new ArrayList<>();
-			List<UserInterestDTO> dto = repository.findByUser(userdto);
-			
-			Optional<BoardDTO> odto;
-			BoardDTO bdto = null;
-
-			System.out.println("데이터 값 : "+dto.get(0).getId());
-			
-			for (int i = 0; i < dto.size(); i++) {
-//				odto = boardRepository.findById(dto.get(i).getId());
-				odto = boardRepository.findById(dto.get(i).getPost().getId());
-				
-				if (odto.isPresent()) {
-					bdto = odto.get();
-					boardDTO.add(bdto);
-				}
-			}
-
-			return boardDTO;
-		}
 }

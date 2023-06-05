@@ -87,9 +87,9 @@ public class MapReviewServiceImpl implements MapReviewService {
 		} else if (num == 1) {
 			return mapReviewRepository.findByLocation(map);
 		} else if (num == 2) {
-			return mapReviewRepository.findByLocationOrderByRatingDesc(map);
+			return mapReviewRepository.findByLocationOrderByRatingDescUpdatedAtDesc(map);
 		} else if (num == 3) {
-			return mapReviewRepository.findByLocationOrderByRatingAsc(map);
+			return mapReviewRepository.findByLocationOrderByRatingAscUpdatedAtDesc(map);
 		} else {
 			return mapReviewRepository.findByLocation(map);
 		}
@@ -154,9 +154,14 @@ public class MapReviewServiceImpl implements MapReviewService {
 //	}
 	
 	
-	
-		
-	
-
+	@Override
+	public List<ReviewImgDTO> reviewReportImg(Long id) {
+		MapReviewDTO reviewDTO = new MapReviewDTO();
+		Optional<MapReviewDTO> dto = mapReviewRepository.findById(id);
+		if (dto.isPresent()) {
+			reviewDTO = dto.get();
+		}
+		return reviewImgRepository.findByReview(reviewDTO);
+	}
 
 }

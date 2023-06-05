@@ -46,13 +46,18 @@ public class MapReviewController {
 	}
 
 	@RequestMapping("/mapReviewList")
-	public List<MapReviewDTO> mapReviewList(@RequestParam("id") Long id,@RequestParam("num") int num) {
-		return mapReviewServiceImpl.reviewList(id,num);
+	public List<MapReviewDTO> mapReviewList(@RequestParam("id") Long id, @RequestParam("num") int num) {
+		return mapReviewServiceImpl.reviewList(id, num);
 	}
 
 	@RequestMapping("/mapImgList")
 	public List<ReviewImgDTO> mapImgList(@RequestParam("id") Long id) {
 		return mapReviewServiceImpl.reviewImgList(id);
+	}
+
+	@RequestMapping("/mapReportImg")
+	public List<ReviewImgDTO> mapReportImg(@RequestParam("id") Long id) {
+		return mapReviewServiceImpl.reviewReportImg(id);
 	}
 
 }

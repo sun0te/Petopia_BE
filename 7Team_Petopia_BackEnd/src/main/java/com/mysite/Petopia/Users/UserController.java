@@ -1,5 +1,7 @@
 package com.mysite.Petopia.Users;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +23,9 @@ import com.mysite.Petopia.UserMypage.Inquiry.InquiryServiceImpl;
 import com.mysite.Petopia.UserMypage.Review.ReviewServiceImpl;
 
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -51,12 +54,23 @@ public class UserController {
 		this.inquiryService = inquiryService;
 		this.reviewService = reviewService;
 		this.mapReviewService = mapReviewService;
-		
 		this.reviewImgRepository = reviewImgRepository;
+	}
+	
+	public UserController(UserService userService) {
+		super();
+		this.userService = userService;
 	}
 	
 	@RequestMapping("/signuppetopia")
 	public void insertUserPetopia(@RequestBody UsersDTO users) {
+//		System.out.println("email : " + users.getEmail());
+//		System.out.println("provider : " + users.getProvider());
+//		System.out.println("password : " + users.getPassword());
+//		System.out.println("name : " + users.getName());
+//		System.out.println("nickname : " + users.getNickname());
+//		System.out.println("birthday : " + users.getBirthday());
+//		System.out.println("profileImage : " + users.getProfileImage());
 		userService.insertUserPetopia(users.getEmail(), users.getProvider(), users.getPassword(), users.getName(), users.getNickname(), users.getBirthday(), users.getProfileImage());
 
 	}

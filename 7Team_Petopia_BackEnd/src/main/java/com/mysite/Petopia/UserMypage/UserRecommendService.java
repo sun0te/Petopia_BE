@@ -43,7 +43,7 @@ public class UserRecommendService {
 		boardRepository.deleteRecommend(post_id.getId());
 		repository.deleteByPost_idAndUser_email(post_id.getId(), user_email.getEmail());
 	}
-
+	
 	public void deleteAllByUser_email(String email) {
 		repository.deleteAllByUser_email(email);
 		
@@ -52,6 +52,4 @@ public class UserRecommendService {
 	public List<UserRecommendDTO> findAllByUser_email(String user_email) {
 		return repository.findAllByUser_email(user_email);
 	}
-	
-	
 }

@@ -1,6 +1,7 @@
 package com.mysite.Petopia.AdminPage;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -10,6 +11,8 @@ import com.mysite.Petopia.AdminPage.BoardReportDTO.ProcessingStatus;
 import com.mysite.Petopia.AdminPage.BoardReportDTO.ReportReason;
 import com.mysite.Petopia.Board.BoardDTO;
 import com.mysite.Petopia.Board.BoardRepository;
+import com.mysite.Petopia.MapReview.MapReviewDTO;
+import com.mysite.Petopia.MapReview.MapReviewRepository;
 
 import com.mysite.Petopia.MapReview.MapReviewDTO;
 import com.mysite.Petopia.MapReview.MapReviewRepository;
@@ -21,7 +24,6 @@ public class BoardReportService {
 
 	private BoardReportRepository repository;
 	private BoardRepository boardRepository;
-
 	private MapReviewRepository mapReviewRepository;
 
 	public BoardReportService(BoardReportRepository repository, BoardRepository boardRepository,
@@ -57,8 +59,15 @@ public class BoardReportService {
 		mapReviewRepository.reportReview(review.getId());
 	}
 
-	public List<BoardReportDTO> selectBoardReportlist() {
-		return repository.findAllByOrderByPostIdAscReportDateDesc();
+	public List<BoardReportDTO> selectBoardReportlist(int num) {
+//		return repository.findAllByOrderByPostIdAscReportDateDesc();
+		if (num == 0) {
+	        return repository.findByReviewIsNullOrderByReportDateDesc();
+	    } else if (num == 1) {
+	        return repository.findByPostIsNullOrderByReportDateDesc();
+	    } else {
+	        return Collections.emptyList(); 
+	    }
 	}
 
 	public void updateBoardReport(Long id, ProcessingStatus status) {
@@ -96,7 +105,4 @@ public class BoardReportService {
 		
 	}
 
-
-
-	
 }
