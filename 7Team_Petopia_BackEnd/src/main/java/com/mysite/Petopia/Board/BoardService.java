@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mysite.Petopia.AdminPage.BoardReportRepository;
 import com.mysite.Petopia.Board.BoardDTO.BoardCategory;
 import com.mysite.Petopia.Board.Travel.TravelRepository;
 import com.mysite.Petopia.UserMypage.UserInterestRepository;
@@ -21,14 +22,16 @@ public class BoardService {
 	private TravelRepository travelRepository;
 	private UserRecommendRepository userRecommendRepository;
 	private UserInterestRepository userInterestRepository;
+	private BoardReportRepository boardReportRepository;
 
 	public BoardService(BoardRepository repository, BoardImgRepository imgRepository, TravelRepository travelRepository,
-			UserRecommendRepository userRecommendRepository, UserInterestRepository userInterestRepository) {
+			UserRecommendRepository userRecommendRepository, UserInterestRepository userInterestRepository, BoardReportRepository boardReportRepository) {
 		this.repository = repository;
 		this.imgRepository = imgRepository;
 		this.travelRepository = travelRepository;
 		this.userRecommendRepository = userRecommendRepository;
 		this.userInterestRepository = userInterestRepository;
+		this.boardReportRepository = boardReportRepository;
 	}
 
 	// 게시글 작성
@@ -70,6 +73,7 @@ public class BoardService {
 		userInterestRepository.deleteByPost_id(id);
 		travelRepository.deleteByPost_id(id);
 		imgRepository.deleteByPost_id(id);
+		boardReportRepository.deleteByPost_id(id);
 		repository.deleteById(id);
 	}
 
