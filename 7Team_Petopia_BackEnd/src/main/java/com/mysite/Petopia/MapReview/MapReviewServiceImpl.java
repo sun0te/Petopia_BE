@@ -114,4 +114,14 @@ public class MapReviewServiceImpl implements MapReviewService {
 		return imgdto;
 	}
 
+	@Override
+	public List<ReviewImgDTO> reviewReportImg(Long id) {
+		MapReviewDTO reviewDTO = new MapReviewDTO();
+		Optional<MapReviewDTO> dto = mapReviewRepository.findById(id);
+		if (dto.isPresent()) {
+			reviewDTO = dto.get();
+		}
+		return reviewImgRepository.findByReview(reviewDTO);
+	}
+
 }

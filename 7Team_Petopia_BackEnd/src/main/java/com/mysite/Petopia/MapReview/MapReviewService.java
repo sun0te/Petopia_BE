@@ -11,4 +11,6 @@ public interface MapReviewService {
 	public List<MapReviewDTO> reviewList(Long id,int num);
 
 	public List<ReviewImgDTO> reviewImgList(Long id);
+	
+	public List<ReviewImgDTO> reviewReportImg(Long id);
 }
