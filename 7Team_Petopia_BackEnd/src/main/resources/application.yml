@@ -27,4 +27,4 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 200MB
-      location: c:\\Project\\React_Source\\Petopia_FE\\public\\uploadimgs
+      location: c:\\Petopia_FE\\public\\uploadimgs
