@@ -8,15 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 
 import jakarta.transaction.Transactional;
 
-
-public interface UserRecommendRepository extends JpaRepository<UserRecommendDTO, Long>{
+public interface UserRecommendRepository extends JpaRepository<UserRecommendDTO, Long> {
 
 	public Boolean existsByPost_idAndUser_email(Long post_id, String user_email);
-	
+
 	public void deleteByPost_idAndUser_email(Long post_id, String user_email);
 
 	public void deleteByPost_id(Long id);
-	
+
 	public void deleteByUser_email(String email);
 
 	public void deleteAllByUser_email(String email);

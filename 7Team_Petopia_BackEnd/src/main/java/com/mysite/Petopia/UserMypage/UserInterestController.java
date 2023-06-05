@@ -42,7 +42,7 @@ public class UserInterestController {
 	// 관심목록 리스트
 	@GetMapping("/list")
 	public List<BoardDTO> getInterestList(@RequestParam("email") String email) {
-	    return service.getInterestList(email);
+		return service.getInterestList(email);
 	}
 
 }

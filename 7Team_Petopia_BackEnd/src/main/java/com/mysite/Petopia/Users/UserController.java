@@ -1,7 +1,5 @@
 package com.mysite.Petopia.Users;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +27,7 @@ import lombok.NoArgsConstructor;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	
+
 	private UserService userService;
 	private BoardService boardService;
 	private BoardReportService boardReportService;
@@ -38,11 +36,11 @@ public class UserController {
 	private InquiryServiceImpl inquiryService;
 	private ReviewServiceImpl reviewService;
 	private MapReviewServiceImpl mapReviewService;
-	
+
 	private ReviewImgRepository reviewImgRepository;
 
 	public UserController(UserService userService, BoardService boardService, BoardReportService boardReportService,
-			UserInterestService userInterestService, UserRecommendService userRecommendService, 
+			UserInterestService userInterestService, UserRecommendService userRecommendService,
 			InquiryServiceImpl inquiryService, ReviewServiceImpl reviewService, MapReviewServiceImpl mapReviewService,
 			ReviewImgRepository reviewImgRepository) {
 		super();
@@ -54,42 +52,34 @@ public class UserController {
 		this.inquiryService = inquiryService;
 		this.reviewService = reviewService;
 		this.mapReviewService = mapReviewService;
+
 		this.reviewImgRepository = reviewImgRepository;
 	}
-	
-	public UserController(UserService userService) {
-		super();
-		this.userService = userService;
-	}
-	
+
 	@RequestMapping("/signuppetopia")
 	public void insertUserPetopia(@RequestBody UsersDTO users) {
-//		System.out.println("email : " + users.getEmail());
-//		System.out.println("provider : " + users.getProvider());
-//		System.out.println("password : " + users.getPassword());
-//		System.out.println("name : " + users.getName());
-//		System.out.println("nickname : " + users.getNickname());
-//		System.out.println("birthday : " + users.getBirthday());
-//		System.out.println("profileImage : " + users.getProfileImage());
-		userService.insertUserPetopia(users.getEmail(), users.getProvider(), users.getPassword(), users.getName(), users.getNickname(), users.getBirthday(), users.getProfileImage());
+		userService.insertUserPetopia(users.getEmail(), users.getProvider(), users.getPassword(), users.getName(),
+				users.getNickname(), users.getBirthday(), users.getProfileImage());
 
 	}
-	
+
 	@RequestMapping("/signupkakao")
 	public void insertUserKakao(@RequestBody UsersDTO users) {
-		userService.insertUserKakao(users.getEmail(), users.getProvider(), users.getPassword(), users.getNickname(), users.getProfileImage());
+		userService.insertUserKakao(users.getEmail(), users.getProvider(), users.getPassword(), users.getNickname(),
+				users.getProfileImage());
 	}
-	
+
 	@RequestMapping("/signupnaver")
 	public void insertUserNaver(@RequestBody UsersDTO users) {
-		userService.insertUserNaver(users.getEmail(), users.getProvider(), users.getPassword(), users.getName(), users.getNickname(), users.getProfileImage());
+		userService.insertUserNaver(users.getEmail(), users.getProvider(), users.getPassword(), users.getName(),
+				users.getNickname(), users.getProfileImage());
 	}
-	
+
 	@RequestMapping("/getuserpetopia")
 	public UsersDTO getUser(@RequestBody UsersDTO users) {
 		return userService.getUserPetopia(users.getEmail(), users.getPassword());
 	}
-	
+
 	@RequestMapping("/getuserinfo")
 	public UsersDTO getUserInfo(@RequestBody UsersDTO users) {
 		return userService.getUserInfo(users.getEmail());
@@ -99,73 +89,74 @@ public class UserController {
 	public List<UsersDTO> findUserEmail(@RequestBody UsersDTO users) {
 		return userService.findUserEmail(users.getName(), users.getPassword(), users.getBirthday());
 	}
-	
+
 	@RequestMapping("/findpassword")
 	public UsersDTO findUserPassword(@RequestBody UsersDTO users) {
 		return userService.findUserPassword(users.getEmail(), users.getName(), users.getBirthday());
 	}
-	
+
 	@RequestMapping("/updateuserinfo")
 	public void updateUserInfo(@RequestBody UsersDTO users) {
 		userService.updateUserInfo(users.getEmail(), users.getName(), users.getNickname(), users.getPassword());
 	}
-	
+
 	// 계정 삭제
 	@Transactional
 	@RequestMapping("/withdrawal")
 	public void deleteUserInfo(@RequestBody UsersDTO users) {
 		// 작성한 게시글 리스트
 		List<BoardDTO> boardDTOList = boardService.getByAuthor_email(users.getEmail());
-		for(BoardDTO boardDTO: boardDTOList) {
-			
+		for (BoardDTO boardDTO : boardDTOList) {
+
 			// 작성한 게시글당 신고 리스트
-			List<BoardReportDTO> boardReportDTOList = boardReportService.getByReporter_email(boardDTO.getAuthor().getEmail());
-			for(BoardReportDTO boardReportDTO: boardReportDTOList) {
+			List<BoardReportDTO> boardReportDTOList = boardReportService
+					.getByReporter_email(boardDTO.getAuthor().getEmail());
+			for (BoardReportDTO boardReportDTO : boardReportDTOList) {
 				boardReportService.deleteByEmail(boardReportDTO.getReporter().getEmail());
 			}
 			boardService.deleteBoard(boardDTO.getId());
 		}
-		
+
 		// 신고 삭제
 		boardReportService.deleteByReporter_email(users.getEmail());
-		
+
 		// 작성한 리뷰 이미지 삭제, 다른 계정의 신고 삭제, 리뷰 삭제
 		List<MapReviewDTO> mapReviewDTOList1 = reviewService.findByWriter(users.getEmail());
-		for(MapReviewDTO mapreviewDTO : mapReviewDTOList1) {
+		for (MapReviewDTO mapreviewDTO : mapReviewDTOList1) {
 			reviewImgRepository.deleteAllByReview(mapreviewDTO);
 			boardReportService.deleteByReview_id(mapreviewDTO.getId());
 			mapReviewService.deleteById(mapreviewDTO.getId());
 		}
-		
+
 		String user_email = users.getEmail();
 		// 계정이 report 한 게시글의 신고 숫자 감소 로직 + report 데이터 삭제
 		List<BoardReportDTO> boardReportDTOList = boardReportService.getByReporter_email(users.getEmail());
-		for(BoardReportDTO boardReportDTO: boardReportDTOList) {
-			if(boardReportDTO.getPost() != null) {
+		for (BoardReportDTO boardReportDTO : boardReportDTOList) {
+			if (boardReportDTO.getPost() != null) {
 				boardService.deleteReportBoard(boardReportDTO.getPost().getId());
 			}
-			if(boardReportDTO.getReview() != null) {
+			if (boardReportDTO.getReview() != null) {
 				mapReviewService.deleteReportReview(boardReportDTO.getReview().getId());
 			}
 		}
 		boardReportService.deleteByReporter_email(users.getEmail());
-		
+
 		// 계정이 recommend 한 게시글의 추천 숫자 감소 로직 + recommend 데이터 삭제
 		List<UserRecommendDTO> userRecommendDTOList = userRecommendService.findAllByUser_email(users.getEmail());
-		for(UserRecommendDTO recommend: userRecommendDTOList) {
+		for (UserRecommendDTO recommend : userRecommendDTOList) {
 			boardService.deleteRecommend(recommend.getPost().getId());
 		}
 		userRecommendService.deleteAllByUser_email(users.getEmail());
-		
+
 		// 계정이 interest 한 게시글의 좋아요 숫자 감소 로직 + interest 데이터 삭제
 		List<UserInterestDTO> userInterestDTOList = userInterestService.findAllByUser_email(users.getEmail());
-		for(UserInterestDTO interest: userInterestDTOList) {
+		for (UserInterestDTO interest : userInterestDTOList) {
 			boardService.deleteInterest(interest.getPost().getId());
 		}
 
 		userInterestService.deleteByUser_email(user_email);
 		inquiryService.deleteByUser_email(user_email);
-		
+
 		userService.deleteUserInfo(users.getEmail());
 	}
 

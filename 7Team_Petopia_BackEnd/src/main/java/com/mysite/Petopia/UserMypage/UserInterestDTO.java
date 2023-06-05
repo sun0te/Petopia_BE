@@ -37,12 +37,8 @@ public class UserInterestDTO {
 
     @Column(name = "clicked_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime clickedAt;
-    
+
     @Transient
-	private String email;
-    
+    private String email;
+
 }
-
-
-
-
